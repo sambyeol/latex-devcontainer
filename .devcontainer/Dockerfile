@@ -7,10 +7,10 @@ ARG INSTALL_ZSH="true"
 ARG UPGRADE_PACKAGES="false"
 # [Option] Enable non-root Docker access in container
 ARG ENABLE_NONROOT_DOCKER="true"
-# [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
+# [Option] Use the OSS Moby Engine instead of the licensed Docker Engine
 ARG USE_MOBY="true"
-# [Option] Select CLI version
-ARG CLI_VERSION="latest"
+# [Option] Engine/CLI Version
+ARG DOCKER_VERSION="latest"
 
 # Enable new "BUILDKIT" mode for Docker CLI
 ENV DOCKER_BUILDKIT=1
@@ -24,12 +24,14 @@ COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update \
     && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     # Use Docker script from script library to set things up
-    && /bin/bash /tmp/library-scripts/docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "${USE_MOBY}" "${CLI_VERSION}" \
+    && /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "${USERNAME}" "${USE_MOBY}" "${DOCKER_VERSION}" \
     # Clean up
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
-# Setting the ENTRYPOINT to docker-init.sh will configure non-root access to 
-# the Docker socket if "overrideCommand": false is set in devcontainer.json. 
+VOLUME [ "/var/lib/docker" ]
+
+# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine 
+# inside the container "overrideCommand": false is set in devcontainer.json. 
 # The script will also execute CMD if you need to alter startup behaviors.
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]

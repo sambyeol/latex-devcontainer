@@ -1,19 +1,13 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/docker-from-docker
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/docker-in-docker
 {
 	"dockerFile": "Dockerfile",
-	"runArgs": ["--init"],
-	"mounts": [ "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind" ],
+	"runArgs": ["--init", "--privileged"],
+	"mounts": ["source=dind-var-lib-docker,target=/var/lib/docker,type=volume"],
 	"overrideCommand": false,
 	
-	// Use this environment variable if you need to bind mount your local source code into a new container.
-	"remoteEnv": {
-		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	},
-
 	// Set *default* container specific settings.json values on container create.
 	"settings": {},
-
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-azuretools.vscode-docker"
