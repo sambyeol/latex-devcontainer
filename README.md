@@ -1,1 +1,2 @@
-# latex-devcontainer
+# Devcontainer with TexLive
+
