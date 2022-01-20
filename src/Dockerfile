@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=latest
 
-FROM ubuntu:${UBUNTU_VERSION}}
+FROM ubuntu:${UBUNTU_VERSION}
 
 ARG USERNAME=sambyeol
 ARG DEBIAN_FRONTEND=noninteractive
