@@ -8,6 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        build-essential \
         curl \
         git \
         ssh-client \
@@ -15,6 +16,9 @@ RUN apt-get update \
         texlive-full \
         zsh \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
+RUN cpan install \
+        Log::Dispatch::File \
+        YAML::Tiny
 
 RUN useradd \
         --shell $(which zsh) \
