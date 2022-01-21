@@ -22,7 +22,7 @@ target "ubuntu2110" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2110",
-        "sambyeol/latex-devcontainer:impish "
+        "sambyeol/latex-devcontainer:impish"
     ]
     args = {
         UBUNTU_VERSION = "21.10"
