@@ -19,6 +19,7 @@ RUN apt-get update \
         zsh \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 RUN yes | cpan install \
+        File::HomeDir \
         Log::Dispatch::File \
         YAML::Tiny
 
