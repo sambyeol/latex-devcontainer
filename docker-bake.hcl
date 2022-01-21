@@ -25,7 +25,7 @@ target "ubuntu2110" {
         "sambyeol/latex-devcontainer:impish "
     ]
     args = {
-        UBUNTU_VERSION = "21.04"
+        UBUNTU_VERSION = "21.10"
     }
 }
 
