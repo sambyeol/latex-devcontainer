@@ -21,7 +21,9 @@ target "ubuntu2104" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2104",
-        "sambyeol/latex-devcontainer:hirsute"
+        "sambyeol/latex-devcontainer:hirsute",
+        "sambyeol/latex-devcontainer:ubuntu",
+        "sambyeol/latex-devcontainer:latest"
     ]
     args = {
         UBUNTU_VERSION = "21.04"
