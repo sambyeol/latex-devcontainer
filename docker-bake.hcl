@@ -1,5 +1,6 @@
 group "default" {
     targets = [
+        "ubuntu2110",
         "ubuntu2104",
         "ubuntu2004",
         "ubuntu1804"
@@ -15,6 +16,17 @@ target "cross" {
 
 target "ubuntu" {
     dockerfile = "./dockerfiles/ubuntu/Dockerfile"
+}
+
+target "ubuntu2110" {
+    inherits = ["ubuntu", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2110",
+        "sambyeol/latex-devcontainer:impish "
+    ]
+    args = {
+        UBUNTU_VERSION = "21.04"
+    }
 }
 
 target "ubuntu2104" {
