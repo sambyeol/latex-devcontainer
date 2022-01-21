@@ -33,9 +33,7 @@ target "ubuntu2104" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2104",
-        "sambyeol/latex-devcontainer:hirsute",
-        "sambyeol/latex-devcontainer:ubuntu",
-        "sambyeol/latex-devcontainer:latest"
+        "sambyeol/latex-devcontainer:hirsute"
     ]
     args = {
         UBUNTU_VERSION = "21.04"
@@ -46,7 +44,9 @@ target "ubuntu2004" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2004",
-        "sambyeol/latex-devcontainer:focal"
+        "sambyeol/latex-devcontainer:focal",
+        "sambyeol/latex-devcontainer:ubuntu",
+        "sambyeol/latex-devcontainer:latest"
     ]
     args = {
         UBUNTU_VERSION = "20.04"
