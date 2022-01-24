@@ -42,7 +42,7 @@ target "ubuntu2110" {
 }
 
 target "ubuntu2110_nonroot" {
-    inherits = ["ubuntu", "ubuntu2110", "nonroot"]
+    inherits = ["ubuntu", "ubuntu2110", "cross", "nonroot"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2110-nonroot",
         "sambyeol/latex-devcontainer:impish-nonroot"
@@ -61,7 +61,7 @@ target "ubuntu2104" {
 }
 
 target "ubuntu2104_nonroot" {
-    inherits = ["ubuntu", "ubuntu2104", "nonroot"]
+    inherits = ["ubuntu", "ubuntu2104", "cross", "nonroot"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2104-nonroot",
         "sambyeol/latex-devcontainer:hirsute-nonroot"
@@ -82,7 +82,7 @@ target "ubuntu2004" {
 }
 
 target "ubuntu2004_nonroot" {
-    inherits = ["ubuntu", "ubuntu2004", "nonroot"]
+    inherits = ["ubuntu", "ubuntu2004", "cross", "nonroot"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2004-nonroot",
         "sambyeol/latex-devcontainer:focal-nonroot",
@@ -103,7 +103,7 @@ target "ubuntu1804" {
 }
 
 target "ubuntu1804_nonroot" {
-    inherits = ["ubuntu", "ubuntu1804", "nonroot"]
+    inherits = ["ubuntu", "ubuntu1804", "cross", "nonroot"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu1804-nonroot",
         "sambyeol/latex-devcontainer:bionic-nonroot"
