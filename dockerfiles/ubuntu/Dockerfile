@@ -2,12 +2,11 @@ ARG UBUNTU_VERSION=latest
 
 FROM ubuntu:${UBUNTU_VERSION}
 
-ARG USERNAME=sambyeol
-ARG DEBIAN_FRONTEND=noninteractive
-
+# Install libraries
 USER root
 ENV LANGUAGE=C.UTF-8
 ENV LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
@@ -23,16 +22,10 @@ RUN yes | cpan install \
         Log::Dispatch::File \
         YAML::Tiny
 
-RUN useradd \
-        --shell $(which zsh) \
-        -G sudo \
-        -m -d /home/${USERNAME} -k /etc/skel \
-        ${USERNAME} \
-    && sed -i -e 's/%sudo.*/%sudo\tALL=(ALL:ALL)\tNOPASSWD:ALL/g' /etc/sudoers \
-    && touch /home/${USERNAME}/.sudo_as_admin_successful
-
-USER ${USERNAME}
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    && sed -i -e 's/ZSH_THEME=.*/ZSH_THEME="simple"/g' ~/.zshrc
+# Create non-root user
+ARG USERNAME=root
+ARG USE_OMZ=true
+COPY script-library/debian-*.sh /tmp/script-library/
+RUN /tmp/script-library/debian-nonroot.sh ${USERNAME} ${USE_OMZ} && rm -r /tmp/script-library
 
 CMD [ "sleep", "infinity" ]

@@ -1,9 +1,13 @@
 group "default" {
     targets = [
         "ubuntu2110",
+        "ubuntu2110_nonroot",
         "ubuntu2104",
+        "ubuntu2104_nonroot",
         "ubuntu2004",
-        "ubuntu1804"
+        "ubuntu2004_nonroot",
+        "ubuntu1804",
+        "ubuntu1804_nonroot"
     ]
 }
 
@@ -18,6 +22,12 @@ target "ubuntu" {
     dockerfile = "./dockerfiles/ubuntu/Dockerfile"
 }
 
+target "nonroot" {
+    args = {
+        USERNAME = "sambyeol"
+    }
+}
+
 target "ubuntu2110" {
     inherits = ["ubuntu", "cross"]
     tags = [
@@ -29,6 +39,14 @@ target "ubuntu2110" {
     }
 }
 
+target "ubuntu2110_nonroot" {
+    inherits = ["ubuntu", "ubuntu2110", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2110-nonroot",
+        "sambyeol/latex-devcontainer:impish-nonroot"
+    ]
+}
+
 target "ubuntu2104" {
     inherits = ["ubuntu", "cross"]
     tags = [
@@ -38,6 +56,14 @@ target "ubuntu2104" {
     args = {
         UBUNTU_VERSION = "21.04"
     }
+}
+
+target "ubuntu2104_nonroot" {
+    inherits = ["ubuntu", "ubuntu2104", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2104-nonroot",
+        "sambyeol/latex-devcontainer:hirsute-nonroot"
+    ]
 }
 
 target "ubuntu2004" {
@@ -53,11 +79,32 @@ target "ubuntu2004" {
     }
 }
 
+target "ubuntu2004_nonroot" {
+    inherits = ["ubuntu", "ubuntu2004", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2004-nonroot",
+        "sambyeol/latex-devcontainer:focal-nonroot",
+        "sambyeol/latex-devcontainer:ubuntu-nonroot",
+        "sambyeol/latex-devcontainer:nonroot"
+    ]
+}
+
 target "ubuntu1804" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu1804",
         "sambyeol/latex-devcontainer:bionic"
+    ]
+    args = {
+        UBUNTU_VERSION = "18.04"
+    }
+}
+
+target "ubuntu1804_nonroot" {
+    inherits = ["ubuntu", "ubuntu1804", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu1804-nonroot",
+        "sambyeol/latex-devcontainer:bionic-nonroot"
     ]
     args = {
         UBUNTU_VERSION = "18.04"
