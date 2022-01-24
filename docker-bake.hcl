@@ -7,7 +7,9 @@ group "default" {
         "ubuntu2004",
         "ubuntu2004_nonroot",
         "ubuntu1804",
-        "ubuntu1804_nonroot"
+        "ubuntu1804_nonroot",
+        "alpine",
+        "alpine_nonroot"
     ]
 }
 
@@ -109,4 +111,19 @@ target "ubuntu1804_nonroot" {
     args = {
         UBUNTU_VERSION = "18.04"
     }
+}
+
+target "alpine" {
+    inherits = ["cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine"
+    ]
+}
+
+target "alpine_nonroot" {
+    inherits = ["alpine", "cross", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-nonroot"
+    ]
 }
