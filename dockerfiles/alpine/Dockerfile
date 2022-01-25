@@ -22,4 +22,6 @@ ARG USE_OMZ=true
 COPY script-library/alpine-*.sh /tmp/script-library/
 RUN /tmp/script-library/alpine-nonroot.sh ${USERNAME} ${USE_OMZ} && rm -r /tmp/script-library
 
+USER ${USERNAME}
+
 CMD [ "sleep", "infinity" ]
