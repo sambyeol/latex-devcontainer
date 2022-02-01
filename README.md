@@ -19,6 +19,7 @@ Make a devcontainer setting file at `.devcontainer/devcontainer.json`:
     ],
 }
 ```
+Then, reopen in container.
 
 ## Cross-compile Images
 All images are cross-compiled with [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/).
