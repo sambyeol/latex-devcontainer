@@ -87,6 +87,7 @@ target "ubuntu2004_nonroot" {
         "sambyeol/latex-devcontainer:ubuntu2004-nonroot",
         "sambyeol/latex-devcontainer:focal-nonroot",
         "sambyeol/latex-devcontainer:ubuntu-nonroot",
+        "sambyeol/latex-devcontainer:latest-nonroot"
         "sambyeol/latex-devcontainer:nonroot"
     ]
 }
