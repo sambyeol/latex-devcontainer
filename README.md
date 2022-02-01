@@ -7,7 +7,7 @@ Images can be found at [Docker Hub](https://hub.docker.com/repository/docker/sam
 Make a devcontainer setting file at `.devcontainer/devcontainer.json`.
 ```json
 {
-    "image": "sambyeol/latex-devcontainer:alpine-nonroot",
+    "image": "sambyeol/latex-devcontainer:ubuntu-nonroot",
     "runArgs": [ "--init" ],
     "settings": {
         "[latex][bibtex]": {
