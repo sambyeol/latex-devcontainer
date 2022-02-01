@@ -3,7 +3,7 @@ Pre-installed TeX Live for [Devcontainer](https://code.visualstudio.com/docs/rem
 You can create your own LaTeX document with one of the provided images.
 
 ## Quickstart
-Make a devcontainer setting file at `.devcontainer/devcontainer.json`:
+Make a devcontainer setting file at `.devcontainer/devcontainer.json`.
 ```json
 {
     "image": "sambyeol/latex-devcontainer:alpine-nonroot",
@@ -25,7 +25,7 @@ Then, reopen in container.
 All images are cross-compiled with [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/).
 
 ### Requirements
-Some system libraries are needed:
+Some system libraries are needed.
 ```bash
 $ sudo apt-get update
 $ sudo apt-get install -y binfmt-support qemu qemu-user-static
@@ -40,7 +40,7 @@ See 'docker --help'
 ```
 
 ### Compile
-You can build images for `linux/amd64` and `linux/arm64` with following command:
+You can build images for `linux/amd64` and `linux/arm64` with following command.
 ```bash
 $ docker buildx bake --push
 ```
