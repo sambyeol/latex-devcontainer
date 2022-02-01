@@ -20,7 +20,7 @@ Make a devcontainer setting file at `.devcontainer/devcontainer.json`:
 }
 ```
 
-## Compile Images
+## Cross-compile Images
 All images are cross-compiled with [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/).
 
 ### Requirements
