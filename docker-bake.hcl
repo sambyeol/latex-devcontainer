@@ -1,13 +1,13 @@
 group "default" {
     targets = [
+        "ubuntu2204",
+        "ubuntu2204_nonroot",
         "ubuntu2110",
         "ubuntu2110_nonroot",
         "ubuntu2104",
         "ubuntu2104_nonroot",
         "ubuntu2004",
         "ubuntu2004_nonroot",
-        "ubuntu1804",
-        "ubuntu1804_nonroot",
         "alpine",
         "alpine_nonroot"
     ]
@@ -20,6 +20,8 @@ target "cross" {
     ]
 }
 
+// Ubuntu
+
 target "ubuntu" {
     dockerfile = "./dockerfiles/ubuntu/Dockerfile"
 }
@@ -28,6 +30,30 @@ target "nonroot" {
     args = {
         USERNAME = "sambyeol"
     }
+}
+
+target "ubuntu2204" {
+    inherits = ["ubuntu", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2204",
+        "sambyeol/latex-devcontainer:jammy",
+        "sambyeol/latex-devcontainer:ubuntu",
+        "sambyeol/latex-devcontainer:latest"
+    ]
+    args = {
+        UBUNTU_VERSION = "22.04"
+    }
+}
+
+target "ubuntu2204_nonroot" {
+    inherits = ["ubuntu", "ubuntu2204", "cross", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2204-nonroot",
+        "sambyeol/latex-devcontainer:jammy-nonroot",
+        "sambyeol/latex-devcontainer:ubuntu-nonroot",
+        "sambyeol/latex-devcontainer:latest-nonroot",
+        "sambyeol/latex-devcontainer:nonroot"
+    ]
 }
 
 target "ubuntu2110" {
@@ -72,9 +98,7 @@ target "ubuntu2004" {
     inherits = ["ubuntu", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2004",
-        "sambyeol/latex-devcontainer:focal",
-        "sambyeol/latex-devcontainer:ubuntu",
-        "sambyeol/latex-devcontainer:latest"
+        "sambyeol/latex-devcontainer:focal"
     ]
     args = {
         UBUNTU_VERSION = "20.04"
@@ -85,12 +109,28 @@ target "ubuntu2004_nonroot" {
     inherits = ["ubuntu", "ubuntu2004", "cross", "nonroot"]
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2004-nonroot",
-        "sambyeol/latex-devcontainer:focal-nonroot",
-        "sambyeol/latex-devcontainer:ubuntu-nonroot",
-        "sambyeol/latex-devcontainer:latest-nonroot",
-        "sambyeol/latex-devcontainer:nonroot"
+        "sambyeol/latex-devcontainer:focal-nonroot"
     ]
 }
+
+// Alpine
+
+target "alpine" {
+    inherits = ["cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine"
+    ]
+}
+
+target "alpine_nonroot" {
+    inherits = ["alpine", "cross", "nonroot"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-nonroot"
+    ]
+}
+
+// Depreciated in May, 2022
 
 target "ubuntu1804" {
     inherits = ["ubuntu", "cross"]
@@ -112,19 +152,4 @@ target "ubuntu1804_nonroot" {
     args = {
         UBUNTU_VERSION = "18.04"
     }
-}
-
-target "alpine" {
-    inherits = ["cross"]
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "sambyeol/latex-devcontainer:alpine"
-    ]
-}
-
-target "alpine_nonroot" {
-    inherits = ["alpine", "cross", "nonroot"]
-    tags = [
-        "sambyeol/latex-devcontainer:alpine-nonroot"
-    ]
 }
