@@ -2,10 +2,6 @@ group "default" {
     targets = [
         "ubuntu2204",
         "ubuntu2204_root",
-        "ubuntu2110",
-        "ubuntu2110_root",
-        "ubuntu2104",
-        "ubuntu2104_root",
         "ubuntu2004",
         "ubuntu2004_root",
         "alpine",
@@ -32,6 +28,25 @@ target "root" {
     }
 }
 
+target "ubuntu2210" {
+    inherits = ["ubuntu", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2210",
+        "sambyeol/latex-devcontainer:kinetic",
+    ]
+    args = {
+        UBUNTU_VERSION = "22.10"
+    }
+}
+
+target "ubuntu2210_root" {
+    inherits = ["ubuntu", "ubuntu2210", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:ubuntu2210-root",
+        "sambyeol/latex-devcontainer:kinetic-root",
+    ]
+}
+
 target "ubuntu2204" {
     inherits = ["ubuntu", "cross"]
     tags = [
@@ -55,6 +70,25 @@ target "ubuntu2204_root" {
         "sambyeol/latex-devcontainer:root"
     ]
 }
+
+// Alpine
+
+target "alpine" {
+    inherits = ["cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine"
+    ]
+}
+
+target "alpine_root" {
+    inherits = ["alpine", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-root"
+    ]
+}
+
+// Depreciated in October, 2022
 
 target "ubuntu2110" {
     inherits = ["ubuntu", "cross"]
@@ -110,23 +144,6 @@ target "ubuntu2004_root" {
     tags = [
         "sambyeol/latex-devcontainer:ubuntu2004-root",
         "sambyeol/latex-devcontainer:focal-root"
-    ]
-}
-
-// Alpine
-
-target "alpine" {
-    inherits = ["cross"]
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "sambyeol/latex-devcontainer:alpine"
-    ]
-}
-
-target "alpine_root" {
-    inherits = ["alpine", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:alpine-root"
     ]
 }
 
