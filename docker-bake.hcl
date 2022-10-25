@@ -24,16 +24,65 @@ target "cross" {
     ]
 }
 
-// Ubuntu
-
-target "ubuntu" {
-    dockerfile = "./dockerfiles/ubuntu/Dockerfile"
-}
-
 target "root" {
     args = {
         USERNAME = "root"
     }
+}
+
+// Debian
+
+target "debian" {
+    dockerfile = "./dockerfiles/debian/Dockerfile"
+}
+
+target "debian11" {
+    inherits = ["debian", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:debian11",
+        "sambyeol/latex-devcontainer:bullseye",
+        "sambyeol/latex-devcontainer:debian",
+        "sambyeol/latex-devcontainer:latest"
+    ]
+    args = {
+        DEBIAN_VERSION = "bullseye"
+    }
+}
+
+target "debian11_root" {
+    inherits = ["debian", "debian11", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:debian11-root",
+        "sambyeol/latex-devcontainer:bullseye-root",
+        "sambyeol/latex-devcontainer:debian-root",
+        "sambyeol/latex-devcontainer:latest-root",
+        "sambyeol/latex-devcontainer:root"
+    ]
+}
+
+target "debian10" {
+    inherits = ["debian", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:debian10",
+        "sambyeol/latex-devcontainer:buster",
+    ]
+    args = {
+        DEBIAN_VERSION = "buster"
+    }
+}
+
+target "debian10_root" {
+    inherits = ["debian", "debian10", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:debian11-root",
+        "sambyeol/latex-devcontainer:buster-root",
+    ]
+}
+
+// Ubuntu
+
+target "ubuntu" {
+    dockerfile = "./dockerfiles/ubuntu/Dockerfile"
 }
 
 target "ubuntu2210" {
@@ -61,7 +110,6 @@ target "ubuntu2204" {
         "sambyeol/latex-devcontainer:ubuntu2204",
         "sambyeol/latex-devcontainer:jammy",
         "sambyeol/latex-devcontainer:ubuntu",
-        "sambyeol/latex-devcontainer:latest"
     ]
     args = {
         UBUNTU_VERSION = "22.04"
@@ -74,8 +122,6 @@ target "ubuntu2204_root" {
         "sambyeol/latex-devcontainer:ubuntu2204-root",
         "sambyeol/latex-devcontainer:jammy-root",
         "sambyeol/latex-devcontainer:ubuntu-root",
-        "sambyeol/latex-devcontainer:latest-root",
-        "sambyeol/latex-devcontainer:root"
     ]
 }
 
