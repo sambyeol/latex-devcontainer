@@ -1,5 +1,9 @@
 group "default" {
     targets = [
+        "debian11",
+        "debian11_root",
+        "debian10",
+        "debian10_root",
         "ubuntu2210",
         "ubuntu2210_root",
         "ubuntu2204",
