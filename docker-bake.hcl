@@ -143,14 +143,11 @@ target "alpine_316" {
 }
 
 target "alpine_316_root" {
-    inherits = ["alpine", "cross", "root"]
+    inherits = ["alpine", "alpine_316", "cross", "root"]
     tags = [
         "sambyeol/latex-devcontainer:alpine-root",
         "sambyeol/latex-devcontainer:alpine-3.16-root",
     ]
-    args = {
-        ALPINE_VERSION = "3.16"
-    }
 }
 
 target "alpine_315" {
@@ -165,13 +162,10 @@ target "alpine_315" {
 }
 
 target "alpine_315_root" {
-    inherits = ["alpine", "cross", "root"]
+    inherits = ["alpine", "alpine_315", "cross", "root"]
     tags = [
         "sambyeol/latex-devcontainer:alpine-3.15-root"
     ]
-    args = {
-        ALPINE_VERSION = "3.15"
-    }
 }
 
 target "alpine_314" {
@@ -186,13 +180,10 @@ target "alpine_314" {
 }
 
 target "alpine_314_root" {
-    inherits = ["alpine", "cross", "root"]
+    inherits = ["alpine", "alpine_314", "cross", "root"]
     tags = [
         "sambyeol/latex-devcontainer:alpine-3.14-root"
     ]
-    args = {
-        ALPINE_VERSION = "3.14"
-    }
 }
 
 target "alpine_313" {
@@ -207,13 +198,10 @@ target "alpine_313" {
 }
 
 target "alpine_313_root" {
-    inherits = ["alpine", "cross", "root"]
+    inherits = ["alpine", "alpine_313", "cross", "root"]
     tags = [
         "sambyeol/latex-devcontainer:alpine-3.13-root"
     ]
-    args = {
-        ALPINE_VERSION = "3.13"
-    }
 }
 
 // Depreciated in October, 2022
