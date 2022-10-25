@@ -1,3 +1,5 @@
+ARG ALPINE_VERSION=latest
+
 FROM alpine
 
 # Install libraries

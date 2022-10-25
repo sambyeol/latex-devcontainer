@@ -4,8 +4,14 @@ group "default" {
         "ubuntu2204_root",
         "ubuntu2004",
         "ubuntu2004_root",
-        "alpine",
-        "alpine_root"
+        "alpine_316",
+        "alpine_316_root",
+        "alpine_315",
+        "alpine_315_root",
+        "alpine_314",
+        "alpine_314_root",
+        "alpine_313",
+        "alpine_313_root"
     ]
 }
 
@@ -74,18 +80,92 @@ target "ubuntu2204_root" {
 // Alpine
 
 target "alpine" {
-    inherits = ["cross"]
     dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "sambyeol/latex-devcontainer:alpine"
-    ]
 }
 
-target "alpine_root" {
+target "alpine_316" {
+    inherits = ["alpine", "cross"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine",
+        "sambyeol/latex-devcontainer:alpine-3.16",
+    ]
+    args = {
+        ALPINE_VERSION = "3.16"
+    }
+}
+
+target "alpine_316_root" {
     inherits = ["alpine", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-root"
+        "sambyeol/latex-devcontainer:alpine-root",
+        "sambyeol/latex-devcontainer:alpine-3.16-root",
     ]
+    args = {
+        ALPINE_VERSION = "3.16"
+    }
+}
+
+target "alpine_315" {
+    inherits = ["alpine", "cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.15"
+    ]
+    args = {
+        ALPINE_VERSION = "3.15"
+    }
+}
+
+target "alpine_315_root" {
+    inherits = ["alpine", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.15-root"
+    ]
+    args = {
+        ALPINE_VERSION = "3.15"
+    }
+}
+
+target "alpine_314" {
+    inherits = ["alpine", "cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.14"
+    ]
+    args = {
+        ALPINE_VERSION = "3.14"
+    }
+}
+
+target "alpine_314_root" {
+    inherits = ["alpine", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.14-root"
+    ]
+    args = {
+        ALPINE_VERSION = "3.14"
+    }
+}
+
+target "alpine_313" {
+    inherits = ["alpine", "cross"]
+    dockerfile = "./dockerfiles/alpine/Dockerfile"
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.13"
+    ]
+    args = {
+        ALPINE_VERSION = "3.13"
+    }
+}
+
+target "alpine_313_root" {
+    inherits = ["alpine", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-3.13-root"
+    ]
+    args = {
+        ALPINE_VERSION = "3.13"
+    }
 }
 
 // Depreciated in October, 2022
