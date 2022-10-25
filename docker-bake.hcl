@@ -1,5 +1,7 @@
 group "default" {
     targets = [
+        "ubuntu2210",
+        "ubuntu2210_root",
         "ubuntu2204",
         "ubuntu2204_root",
         "ubuntu2004",
