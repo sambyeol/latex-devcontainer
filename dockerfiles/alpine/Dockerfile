@@ -17,7 +17,7 @@ RUN yes | cpan install \
         YAML::Tiny
 
 # Create non-root user
-ARG USERNAME=root
+ARG USERNAME=sambyeol
 ARG USE_OMZ=true
 COPY script-library/alpine-*.sh /tmp/script-library/
 RUN /tmp/script-library/alpine-nonroot.sh ${USERNAME} ${USE_OMZ} && rm -r /tmp/script-library

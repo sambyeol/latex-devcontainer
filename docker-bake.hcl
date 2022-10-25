@@ -1,15 +1,15 @@
 group "default" {
     targets = [
         "ubuntu2204",
-        "ubuntu2204_nonroot",
+        "ubuntu2204_root",
         "ubuntu2110",
-        "ubuntu2110_nonroot",
+        "ubuntu2110_root",
         "ubuntu2104",
-        "ubuntu2104_nonroot",
+        "ubuntu2104_root",
         "ubuntu2004",
-        "ubuntu2004_nonroot",
+        "ubuntu2004_root",
         "alpine",
-        "alpine_nonroot"
+        "alpine_root"
     ]
 }
 
@@ -26,9 +26,9 @@ target "ubuntu" {
     dockerfile = "./dockerfiles/ubuntu/Dockerfile"
 }
 
-target "nonroot" {
+target "root" {
     args = {
-        USERNAME = "sambyeol"
+        USERNAME = "root"
     }
 }
 
@@ -45,14 +45,14 @@ target "ubuntu2204" {
     }
 }
 
-target "ubuntu2204_nonroot" {
-    inherits = ["ubuntu", "ubuntu2204", "cross", "nonroot"]
+target "ubuntu2204_root" {
+    inherits = ["ubuntu", "ubuntu2204", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2204-nonroot",
-        "sambyeol/latex-devcontainer:jammy-nonroot",
-        "sambyeol/latex-devcontainer:ubuntu-nonroot",
-        "sambyeol/latex-devcontainer:latest-nonroot",
-        "sambyeol/latex-devcontainer:nonroot"
+        "sambyeol/latex-devcontainer:ubuntu2204-root",
+        "sambyeol/latex-devcontainer:jammy-root",
+        "sambyeol/latex-devcontainer:ubuntu-root",
+        "sambyeol/latex-devcontainer:latest-root",
+        "sambyeol/latex-devcontainer:root"
     ]
 }
 
@@ -67,11 +67,11 @@ target "ubuntu2110" {
     }
 }
 
-target "ubuntu2110_nonroot" {
-    inherits = ["ubuntu", "ubuntu2110", "cross", "nonroot"]
+target "ubuntu2110_root" {
+    inherits = ["ubuntu", "ubuntu2110", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2110-nonroot",
-        "sambyeol/latex-devcontainer:impish-nonroot"
+        "sambyeol/latex-devcontainer:ubuntu2110-root",
+        "sambyeol/latex-devcontainer:impish-root"
     ]
 }
 
@@ -86,11 +86,11 @@ target "ubuntu2104" {
     }
 }
 
-target "ubuntu2104_nonroot" {
-    inherits = ["ubuntu", "ubuntu2104", "cross", "nonroot"]
+target "ubuntu2104_root" {
+    inherits = ["ubuntu", "ubuntu2104", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2104-nonroot",
-        "sambyeol/latex-devcontainer:hirsute-nonroot"
+        "sambyeol/latex-devcontainer:ubuntu2104-root",
+        "sambyeol/latex-devcontainer:hirsute-root"
     ]
 }
 
@@ -105,11 +105,11 @@ target "ubuntu2004" {
     }
 }
 
-target "ubuntu2004_nonroot" {
-    inherits = ["ubuntu", "ubuntu2004", "cross", "nonroot"]
+target "ubuntu2004_root" {
+    inherits = ["ubuntu", "ubuntu2004", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2004-nonroot",
-        "sambyeol/latex-devcontainer:focal-nonroot"
+        "sambyeol/latex-devcontainer:ubuntu2004-root",
+        "sambyeol/latex-devcontainer:focal-root"
     ]
 }
 
@@ -123,10 +123,10 @@ target "alpine" {
     ]
 }
 
-target "alpine_nonroot" {
-    inherits = ["alpine", "cross", "nonroot"]
+target "alpine_root" {
+    inherits = ["alpine", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-nonroot"
+        "sambyeol/latex-devcontainer:alpine-root"
     ]
 }
 
@@ -143,11 +143,11 @@ target "ubuntu1804" {
     }
 }
 
-target "ubuntu1804_nonroot" {
-    inherits = ["ubuntu", "ubuntu1804", "cross", "nonroot"]
+target "ubuntu1804_root" {
+    inherits = ["ubuntu", "ubuntu1804", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu1804-nonroot",
-        "sambyeol/latex-devcontainer:bionic-nonroot"
+        "sambyeol/latex-devcontainer:ubuntu1804-root",
+        "sambyeol/latex-devcontainer:bionic-root"
     ]
     args = {
         UBUNTU_VERSION = "18.04"
