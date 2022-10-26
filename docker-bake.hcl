@@ -78,7 +78,7 @@ target "debian10" {
 target "debian10_root" {
     inherits = ["debian", "debian10", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:debian11-root",
+        "sambyeol/latex-devcontainer:debian10-root",
         "sambyeol/latex-devcontainer:buster-root",
     ]
 }
