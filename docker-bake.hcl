@@ -4,20 +4,22 @@ group "default" {
         "debian11_root",
         "debian10",
         "debian10_root",
+
         "ubuntu2210",
         "ubuntu2210_root",
         "ubuntu2204",
         "ubuntu2204_root",
         "ubuntu2004",
         "ubuntu2004_root",
+
+        "alpine_317",
+        "alpine_317_root",
         "alpine_316",
         "alpine_316_root",
         "alpine_315",
         "alpine_315_root",
         "alpine_314",
         "alpine_314_root",
-        "alpine_313",
-        "alpine_313_root"
     ]
 }
 
@@ -135,10 +137,28 @@ target "alpine" {
     dockerfile = "./dockerfiles/alpine/Dockerfile"
 }
 
-target "alpine_316" {
+target "alpine_317" {
     inherits = ["alpine", "cross"]
     tags = [
         "sambyeol/latex-devcontainer:alpine",
+        "sambyeol/latex-devcontainer:alpine-3.17",
+    ]
+    args = {
+        ALPINE_VERSION = "3.17"
+    }
+}
+
+target "alpine_317_root" {
+    inherits = ["alpine", "alpine_317", "cross", "root"]
+    tags = [
+        "sambyeol/latex-devcontainer:alpine-root",
+        "sambyeol/latex-devcontainer:alpine-3.17-root",
+    ]
+}
+
+target "alpine_316" {
+    inherits = ["alpine", "cross"]
+    tags = [
         "sambyeol/latex-devcontainer:alpine-3.16",
     ]
     args = {
@@ -149,7 +169,6 @@ target "alpine_316" {
 target "alpine_316_root" {
     inherits = ["alpine", "alpine_316", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-root",
         "sambyeol/latex-devcontainer:alpine-3.16-root",
     ]
 }
@@ -189,6 +208,8 @@ target "alpine_314_root" {
         "sambyeol/latex-devcontainer:alpine-3.14-root"
     ]
 }
+
+// Depreciated in January, 2023
 
 target "alpine_313" {
     inherits = ["alpine", "cross"]
