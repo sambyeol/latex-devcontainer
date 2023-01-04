@@ -45,4 +45,4 @@ You can build images for `linux/amd64` and `linux/arm64` with following command.
 ```bash
 $ docker buildx bake --push
 ```
-Note that `--push` option will push to [Docker Hub](https://hub.docker.com/repository/docker/sambyeol/latex-devcontainer) right after building images.
+Note that `--push` option will push to [Docker Hub](https://hub.docker.com/r/sambyeol/latex-devcontainer) right after building images.
