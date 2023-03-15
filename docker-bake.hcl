@@ -45,10 +45,10 @@ target "debian" {
 target "debian11" {
     inherits = ["debian", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:debian11",
-        "sambyeol/latex-devcontainer:bullseye",
-        "sambyeol/latex-devcontainer:debian",
-        "sambyeol/latex-devcontainer:latest"
+        "ghcr.io/sambyeol/latex-devcontainer:debian11",
+        "ghcr.io/sambyeol/latex-devcontainer:bullseye",
+        "ghcr.io/sambyeol/latex-devcontainer:debian",
+        "ghcr.io/sambyeol/latex-devcontainer:latest"
     ]
     args = {
         DEBIAN_VERSION = "bullseye"
@@ -58,19 +58,19 @@ target "debian11" {
 target "debian11_root" {
     inherits = ["debian", "debian11", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:debian11-root",
-        "sambyeol/latex-devcontainer:bullseye-root",
-        "sambyeol/latex-devcontainer:debian-root",
-        "sambyeol/latex-devcontainer:latest-root",
-        "sambyeol/latex-devcontainer:root"
+        "ghcr.io/sambyeol/latex-devcontainer:debian11-root",
+        "ghcr.io/sambyeol/latex-devcontainer:bullseye-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-root",
+        "ghcr.io/sambyeol/latex-devcontainer:latest-root",
+        "ghcr.io/sambyeol/latex-devcontainer:root"
     ]
 }
 
 target "debian10" {
     inherits = ["debian", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:debian10",
-        "sambyeol/latex-devcontainer:buster",
+        "ghcr.io/sambyeol/latex-devcontainer:debian10",
+        "ghcr.io/sambyeol/latex-devcontainer:buster",
     ]
     args = {
         DEBIAN_VERSION = "buster"
@@ -80,8 +80,8 @@ target "debian10" {
 target "debian10_root" {
     inherits = ["debian", "debian10", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:debian10-root",
-        "sambyeol/latex-devcontainer:buster-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian10-root",
+        "ghcr.io/sambyeol/latex-devcontainer:buster-root",
     ]
 }
 
@@ -94,8 +94,8 @@ target "ubuntu" {
 target "ubuntu2210" {
     inherits = ["ubuntu", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2210",
-        "sambyeol/latex-devcontainer:kinetic",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210",
+        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
     ]
     args = {
         UBUNTU_VERSION = "22.10"
@@ -105,17 +105,17 @@ target "ubuntu2210" {
 target "ubuntu2210_root" {
     inherits = ["ubuntu", "ubuntu2210", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2210-root",
-        "sambyeol/latex-devcontainer:kinetic-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210-root",
+        "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
     ]
 }
 
 target "ubuntu2204" {
     inherits = ["ubuntu", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2204",
-        "sambyeol/latex-devcontainer:jammy",
-        "sambyeol/latex-devcontainer:ubuntu",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204",
+        "ghcr.io/sambyeol/latex-devcontainer:jammy",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu",
     ]
     args = {
         UBUNTU_VERSION = "22.04"
@@ -125,9 +125,28 @@ target "ubuntu2204" {
 target "ubuntu2204_root" {
     inherits = ["ubuntu", "ubuntu2204", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:ubuntu2204-root",
-        "sambyeol/latex-devcontainer:jammy-root",
-        "sambyeol/latex-devcontainer:ubuntu-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204-root",
+        "ghcr.io/sambyeol/latex-devcontainer:jammy-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-root",
+    ]
+}
+
+target "ubuntu2004" {
+    inherits = ["ubuntu", "cross"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004",
+        "ghcr.io/sambyeol/latex-devcontainer:focal"
+    ]
+    args = {
+        UBUNTU_VERSION = "20.04"
+    }
+}
+
+target "ubuntu2004_root" {
+    inherits = ["ubuntu", "ubuntu2004", "cross", "root"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004-root",
+        "ghcr.io/sambyeol/latex-devcontainer:focal-root"
     ]
 }
 
@@ -140,8 +159,8 @@ target "alpine" {
 target "alpine_317" {
     inherits = ["alpine", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine",
-        "sambyeol/latex-devcontainer:alpine-3.17",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.17",
     ]
     args = {
         ALPINE_VERSION = "3.17"
@@ -151,15 +170,15 @@ target "alpine_317" {
 target "alpine_317_root" {
     inherits = ["alpine", "alpine_317", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-root",
-        "sambyeol/latex-devcontainer:alpine-3.17-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.17-root",
     ]
 }
 
 target "alpine_316" {
     inherits = ["alpine", "cross"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.16",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16",
     ]
     args = {
         ALPINE_VERSION = "3.16"
@@ -169,7 +188,7 @@ target "alpine_316" {
 target "alpine_316_root" {
     inherits = ["alpine", "alpine_316", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.16-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16-root",
     ]
 }
 
@@ -177,7 +196,7 @@ target "alpine_315" {
     inherits = ["alpine", "cross"]
     dockerfile = "./dockerfiles/alpine/Dockerfile"
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.15"
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15"
     ]
     args = {
         ALPINE_VERSION = "3.15"
@@ -187,7 +206,7 @@ target "alpine_315" {
 target "alpine_315_root" {
     inherits = ["alpine", "alpine_315", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.15-root"
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15-root"
     ]
 }
 
@@ -195,7 +214,7 @@ target "alpine_314" {
     inherits = ["alpine", "cross"]
     dockerfile = "./dockerfiles/alpine/Dockerfile"
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.14"
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.14"
     ]
     args = {
         ALPINE_VERSION = "3.14"
@@ -205,109 +224,6 @@ target "alpine_314" {
 target "alpine_314_root" {
     inherits = ["alpine", "alpine_314", "cross", "root"]
     tags = [
-        "sambyeol/latex-devcontainer:alpine-3.14-root"
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.14-root"
     ]
-}
-
-// Depreciated in January, 2023
-
-target "alpine_313" {
-    inherits = ["alpine", "cross"]
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "sambyeol/latex-devcontainer:alpine-3.13"
-    ]
-    args = {
-        ALPINE_VERSION = "3.13"
-    }
-}
-
-target "alpine_313_root" {
-    inherits = ["alpine", "alpine_313", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:alpine-3.13-root"
-    ]
-}
-
-// Depreciated in October, 2022
-
-target "ubuntu2110" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2110",
-        "sambyeol/latex-devcontainer:impish"
-    ]
-    args = {
-        UBUNTU_VERSION = "21.10"
-    }
-}
-
-target "ubuntu2110_root" {
-    inherits = ["ubuntu", "ubuntu2110", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2110-root",
-        "sambyeol/latex-devcontainer:impish-root"
-    ]
-}
-
-target "ubuntu2104" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2104",
-        "sambyeol/latex-devcontainer:hirsute"
-    ]
-    args = {
-        UBUNTU_VERSION = "21.04"
-    }
-}
-
-target "ubuntu2104_root" {
-    inherits = ["ubuntu", "ubuntu2104", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2104-root",
-        "sambyeol/latex-devcontainer:hirsute-root"
-    ]
-}
-
-target "ubuntu2004" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2004",
-        "sambyeol/latex-devcontainer:focal"
-    ]
-    args = {
-        UBUNTU_VERSION = "20.04"
-    }
-}
-
-target "ubuntu2004_root" {
-    inherits = ["ubuntu", "ubuntu2004", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu2004-root",
-        "sambyeol/latex-devcontainer:focal-root"
-    ]
-}
-
-// Depreciated in May, 2022
-
-target "ubuntu1804" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu1804",
-        "sambyeol/latex-devcontainer:bionic"
-    ]
-    args = {
-        UBUNTU_VERSION = "18.04"
-    }
-}
-
-target "ubuntu1804_root" {
-    inherits = ["ubuntu", "ubuntu1804", "cross", "root"]
-    tags = [
-        "sambyeol/latex-devcontainer:ubuntu1804-root",
-        "sambyeol/latex-devcontainer:bionic-root"
-    ]
-    args = {
-        UBUNTU_VERSION = "18.04"
-    }
 }

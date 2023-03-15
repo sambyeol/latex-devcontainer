@@ -1,13 +1,13 @@
 # Devcontainer with TeX Live
 Pre-installed TeX Live for [Devcontainer](https://code.visualstudio.com/docs/remote/containers).
 You can create your own LaTeX document with one of the provided images.
-Images can be found at [Docker Hub](https://hub.docker.com/r/sambyeol/latex-devcontainer).
+Images can be found at `ghcr.io/sambyeol/latex-devcontainer`.
 
 ## Quickstart
 Make a devcontainer setting file at `.devcontainer/devcontainer.json` in your project.
 ```json
 {
-    "image": "sambyeol/latex-devcontainer:ubuntu-nonroot",
+    "image": "ghcr.io/sambyeol/latex-devcontainer",
     "runArgs": [ "--init" ],
     "settings": {
         "[latex][bibtex]": {
@@ -21,6 +21,10 @@ Make a devcontainer setting file at `.devcontainer/devcontainer.json` in your pr
 }
 ```
 Then, reopen in container.
+
+## Tags
+* Images are tagged with base images. For example, `ubuntu` or `ubuntu-` tags mean that image is created from [Ubuntu image](https://hub.docker.com/_/ubuntu).
+* An image without `root` tag comes with non-root user `sambyeol`.
 
 ## Cross-compile Images
 All images are cross-compiled with [Docker Buildx](https://docs.docker.com/buildx/working-with-buildx/).

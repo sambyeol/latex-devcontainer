@@ -2,6 +2,8 @@ ARG DEBIAN_VERSION=latest
 
 FROM debian:${DEBIAN_VERSION}
 
+LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
+
 # Install libraries
 USER root
 ENV LANGUAGE=C.UTF-8

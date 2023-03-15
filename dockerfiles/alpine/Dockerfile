@@ -2,6 +2,8 @@ ARG ALPINE_VERSION=latest
 
 FROM alpine:${ALPINE_VERSION}
 
+LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
+
 # Install libraries
 USER root
 RUN apk add --no-cache \

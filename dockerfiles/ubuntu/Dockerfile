@@ -2,6 +2,8 @@ ARG UBUNTU_VERSION=latest
 
 FROM ubuntu:${UBUNTU_VERSION}
 
+LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
+
 # Install libraries
 USER root
 ENV LANGUAGE=C.UTF-8

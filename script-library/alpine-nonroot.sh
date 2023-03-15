@@ -19,6 +19,7 @@ fi
 
 # Install OMZ
 if [ "${USE_OMZ}" = "true" ] ; then
+    su ${USERNAME} -c "touch /home/${USERNAME}/.zshrc"
     RUNZSH=no su ${USERNAME} -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     su ${USERNAME} -s /bin/sh -c 'sed -i -e "s/ZSH_THEME=.*/ZSH_THEME=\"simple\"/g" ~/.zshrc'
 fi
