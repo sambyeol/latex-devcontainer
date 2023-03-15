@@ -1,6 +1,6 @@
 ARG ALPINE_VERSION=latest
 
-FROM alpine
+FROM alpine:ALPINE_VERSION
 
 # Install libraries
 USER root
