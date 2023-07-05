@@ -6,10 +6,15 @@ group "default" {
     ]
 }
 
-group "debian" {
+group "latest" {
     targets = [
         "debian12",
         "debian12_root",
+    ]
+}
+
+group "debian" {
+    targets = [
         "debian11",
         "debian11_root",
         "debian10",
