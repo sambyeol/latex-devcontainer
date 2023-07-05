@@ -39,14 +39,20 @@ jobs:
       #     push: true
       #     targets: ubuntu
 
-      - name: Build debian
-        uses: docker/bake-action@v3
-        with:
-          push: true
-          targets: debian    
+      # - name: Build debian
+      #   uses: docker/bake-action@v3
+      #   with:
+      #     push: true
+      #     targets: debian    
 
       - name: Build latest
         uses: docker/bake-action@v3
         with:
-          push: true
+          # push: true
           targets: latest
+      
+      - name: Build latest
+        uses: docker/bake-action@v3
+        with:
+          push: true
+          targets: latest_deploy

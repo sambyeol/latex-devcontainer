@@ -1,15 +1,21 @@
 group "default" {
     targets = [
-        "latest",
-        "debian",
-        "ubuntu",
-        "alpine",
+        "latest_deploy",
+        "debian_deploy",
+        "ubuntu_deploy",
+        "alpine_deploy",
     ]
 }
 
 group "latest" {
     targets = [
         "debian12",
+        "latest_deploy",
+    ]
+}
+
+group "latest_deploy" {
+    targets = [
         "debian12_nonroot",
         "debian12_root",
     ]
@@ -79,7 +85,21 @@ target "debian_nonroot" {
     dockerfile = "./dockerfiles/debian/nonroot.Dockerfile"
 }
 
-target "debian12" {
+group "debian12" {
+    targets = [
+        "debian12_base",
+        "debian12_deploy",
+    ]
+}
+
+group "debian12_deploy" {
+    targets = [
+        "debian12_nonroot",
+        "debian12_root",
+    ]
+}
+
+target "debian12_base" {
     inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "bookworm"
@@ -89,7 +109,7 @@ target "debian12" {
 target "debian12_root" {
     inherits = ["debian_root", "cross"]
     contexts = {
-        base = "target:debian12"
+        base = "target:debian12_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian12-root",
@@ -103,7 +123,7 @@ target "debian12_root" {
 target "debian12_nonroot" {
     inherits = ["debian_nonroot", "cross"]
     contexts = {
-        base = "target:debian12"
+        base = "target:debian12_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian12",
@@ -124,7 +144,7 @@ target "debian11" {
 target "debian11_root" {
     inherits = ["debian_root", "cross"]
     contexts = {
-        base = "target:debian11"
+        base = "target:debian11_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian11-root",
@@ -135,7 +155,7 @@ target "debian11_root" {
 target "debian11_nonroot" {
     inherits = ["debian_nonroot", "cross"]
     contexts = {
-        base = "target:debian11"
+        base = "target:debian11_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian11",
@@ -153,7 +173,7 @@ target "debian10" {
 target "debian10_root" {
     inherits = ["debian_root", "cross"]
     contexts = {
-        base = "target:debian10"
+        base = "target:debian10_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian10-root",
@@ -164,7 +184,7 @@ target "debian10_root" {
 target "debian10_nonroot" {
     inherits = ["debian_nonroot", "cross"]
     contexts = {
-        base = "target:debian10"
+        base = "target:debian10_base"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian10",
