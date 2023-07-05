@@ -1,5 +1,6 @@
 group "default" {
     targets = [
+        "latest",
         "debian",
         "ubuntu",
         "alpine",
@@ -8,16 +9,16 @@ group "default" {
 
 group "latest" {
     targets = [
-        "debian12",
+        "debian12_nonroot",
         "debian12_root",
     ]
 }
 
 group "debian" {
     targets = [
-        "debian11",
+        "debian11_nonroot",
         "debian11_root",
-        "debian10",
+        "debian10_nonroot",
         "debian10_root",
     ]
 }
@@ -63,25 +64,30 @@ target "root" {
 
 // Debian
 
-target "debian" {
-    dockerfile = "./dockerfiles/debian/Dockerfile"
+target "debian_base" {
+    dockerfile = "./dockerfiles/debian/base.Dockerfile"
+}
+
+target "debian_root" {
+    dockerfile = "./dockerfiles/debian/root.Dockerfile"
+}
+
+target "debian_nonroot" {
+    dockerfile = "./dockerfiles/debian/nonroot.Dockerfile"
 }
 
 target "debian12" {
-    inherits = ["debian", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian12",
-        "ghcr.io/sambyeol/latex-devcontainer:bookworm",
-        "ghcr.io/sambyeol/latex-devcontainer:debian",
-        "ghcr.io/sambyeol/latex-devcontainer:latest"
-    ]
+    inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "bookworm"
     }
 }
 
 target "debian12_root" {
-    inherits = ["debian", "debian12", "cross"]
+    inherits = ["debian_root", "cross"]
+    contexts = {
+        base = "debian12"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian12-root",
         "ghcr.io/sambyeol/latex-devcontainer:bookworm-root",
@@ -91,41 +97,75 @@ target "debian12_root" {
     ]
 }
 
-target "debian11" {
-    inherits = ["debian", "cross"]
+target "debian12_nonroot" {
+    inherits = ["debian_nonroot", "cross"]
+    contexts = {
+        base = "debian12"
+    }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian11",
-        "ghcr.io/sambyeol/latex-devcontainer:bullseye",
+        "ghcr.io/sambyeol/latex-devcontainer:debian12",
+        "ghcr.io/sambyeol/latex-devcontainer:bookworm",
+        "ghcr.io/sambyeol/latex-devcontainer:debian",
+        "ghcr.io/sambyeol/latex-devcontainer:latest"
     ]
+}
+
+target "debian11" {
+    inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "bullseye"
     }
+    
 }
 
 target "debian11_root" {
-    inherits = ["debian", "debian11", "cross"]
+    inherits = ["debian_root", "cross"]
+    contexts = {
+        base = "debian11"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian11-root",
         "ghcr.io/sambyeol/latex-devcontainer:bullseye-root",
     ]
 }
 
-target "debian10" {
-    inherits = ["debian", "cross"]
+target "debian11_nonroot" {
+    inherits = ["debian_nonroot", "cross"]
+    contexts = {
+        base = "debian11"
+    }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian10",
-        "ghcr.io/sambyeol/latex-devcontainer:buster",
+        "ghcr.io/sambyeol/latex-devcontainer:debian11",
+        "ghcr.io/sambyeol/latex-devcontainer:bullseye",
     ]
+}
+
+target "debian10" {
+    inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "buster"
     }
 }
 
 target "debian10_root" {
-    inherits = ["debian", "debian10", "cross"]
+    inherits = ["debian_root", "cross"]
+    contexts = {
+        base = "debian10"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian10-root",
         "ghcr.io/sambyeol/latex-devcontainer:buster-root",
+    ]
+}
+
+target "debian10_nonroot" {
+    inherits = ["debian_nonroot", "cross"]
+    contexts = {
+        base = "debian10"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:debian10",
+        "ghcr.io/sambyeol/latex-devcontainer:buster",
     ]
 }
 

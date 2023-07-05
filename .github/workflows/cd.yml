@@ -27,17 +27,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Build alpine
-        uses: docker/bake-action@v3
-        with:
-          push: true
-          targets: alpine
+      # - name: Build alpine
+      #   uses: docker/bake-action@v3
+      #   with:
+      #     push: true
+      #     targets: alpine
 
-      - name: Build ubuntu
-        uses: docker/bake-action@v3
-        with:
-          push: true
-          targets: ubuntu
+      # - name: Build ubuntu
+      #   uses: docker/bake-action@v3
+      #   with:
+      #     push: true
+      #     targets: ubuntu
 
       - name: Build debian
         uses: docker/bake-action@v3
