@@ -1,10 +1,14 @@
 group "default" {
     targets = [
+        "debian12",
+        "debian12_root",
         "debian11",
         "debian11_root",
         "debian10",
         "debian10_root",
 
+        "ubuntu2304",
+        "ubuntu2304_root",
         "ubuntu2210",
         "ubuntu2210_root",
         "ubuntu2204",
@@ -12,14 +16,14 @@ group "default" {
         "ubuntu2004",
         "ubuntu2004_root",
 
+        "alpine_318",
+        "alpine_318_root",
         "alpine_317",
         "alpine_317_root",
         "alpine_316",
         "alpine_316_root",
         "alpine_315",
         "alpine_315_root",
-        "alpine_314",
-        "alpine_314_root",
     ]
 }
 
@@ -42,13 +46,35 @@ target "debian" {
     dockerfile = "./dockerfiles/debian/Dockerfile"
 }
 
+target "debian12" {
+    inherits = ["debian", "cross"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:debian12",
+        "ghcr.io/sambyeol/latex-devcontainer:bookworm",
+        "ghcr.io/sambyeol/latex-devcontainer:debian",
+        "ghcr.io/sambyeol/latex-devcontainer:latest"
+    ]
+    args = {
+        DEBIAN_VERSION = "bookworm"
+    }
+}
+
+target "debian12_root" {
+    inherits = ["debian", "debian12", "cross"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:debian12-root",
+        "ghcr.io/sambyeol/latex-devcontainer:bookworm-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-root",
+        "ghcr.io/sambyeol/latex-devcontainer:latest-root",
+        "ghcr.io/sambyeol/latex-devcontainer:root"
+    ]
+}
+
 target "debian11" {
     inherits = ["debian", "cross"]
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian11",
         "ghcr.io/sambyeol/latex-devcontainer:bullseye",
-        "ghcr.io/sambyeol/latex-devcontainer:debian",
-        "ghcr.io/sambyeol/latex-devcontainer:latest"
     ]
     args = {
         DEBIAN_VERSION = "bullseye"
@@ -60,9 +86,6 @@ target "debian11_root" {
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:debian11-root",
         "ghcr.io/sambyeol/latex-devcontainer:bullseye-root",
-        "ghcr.io/sambyeol/latex-devcontainer:debian-root",
-        "ghcr.io/sambyeol/latex-devcontainer:latest-root",
-        "ghcr.io/sambyeol/latex-devcontainer:root"
     ]
 }
 
@@ -89,6 +112,25 @@ target "debian10_root" {
 
 target "ubuntu" {
     dockerfile = "./dockerfiles/ubuntu/Dockerfile"
+}
+
+target "ubuntu2304" {
+    inherits = ["ubuntu", "cross"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304",
+        "ghcr.io/sambyeol/latex-devcontainer:lunar",
+    ]
+    args = {
+        UBUNTU_VERSION = "23.04"
+    }
+}
+
+target "ubuntu2304_root" {
+    inherits = ["ubuntu", "ubuntu2304", "cross", "root"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304-root",
+        "ghcr.io/sambyeol/latex-devcontainer:lunar-root",
+    ]
 }
 
 target "ubuntu2210" {
@@ -156,6 +198,25 @@ target "alpine" {
     dockerfile = "./dockerfiles/alpine/Dockerfile"
 }
 
+target "alpine_318" {
+    inherits = ["alpine", "cross"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18",
+    ]
+    args = {
+        ALPINE_VERSION = "3.18"
+    }
+}
+
+target "alpine_318_root" {
+    inherits = ["alpine", "alpine_318", "cross", "root"]
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18-root",
+    ]
+}
+
 target "alpine_317" {
     inherits = ["alpine", "cross"]
     tags = [
@@ -207,23 +268,5 @@ target "alpine_315_root" {
     inherits = ["alpine", "alpine_315", "cross", "root"]
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15-root"
-    ]
-}
-
-target "alpine_314" {
-    inherits = ["alpine", "cross"]
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.14"
-    ]
-    args = {
-        ALPINE_VERSION = "3.14"
-    }
-}
-
-target "alpine_314_root" {
-    inherits = ["alpine", "alpine_314", "cross", "root"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.14-root"
     ]
 }
