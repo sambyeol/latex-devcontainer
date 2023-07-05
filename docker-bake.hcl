@@ -9,6 +9,7 @@ group "default" {
 
 group "latest" {
     targets = [
+        "debian12",
         "debian12_nonroot",
         "debian12_root",
     ]
@@ -16,8 +17,10 @@ group "latest" {
 
 group "debian" {
     targets = [
+        "debian11",
         "debian11_nonroot",
         "debian11_root",
+        "debian10",
         "debian10_nonroot",
         "debian10_root",
     ]
