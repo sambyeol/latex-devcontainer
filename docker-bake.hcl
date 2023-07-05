@@ -1,60 +1,9 @@
 group "default" {
     targets = [
-        "latest_deploy",
-        "debian_deploy",
-        "ubuntu_deploy",
-        "alpine_deploy",
-    ]
-}
-
-group "latest" {
-    targets = [
-        "debian12",
-        "latest_deploy",
-    ]
-}
-
-group "latest_deploy" {
-    targets = [
-        "debian12_nonroot",
-        "debian12_root",
-    ]
-}
-
-group "debian" {
-    targets = [
-        "debian11",
-        "debian11_nonroot",
-        "debian11_root",
-        "debian10",
-        "debian10_nonroot",
-        "debian10_root",
-    ]
-}
-
-group "ubuntu" {
-    targets = [
-        "ubuntu2304",
-        "ubuntu2304_root",
-        "ubuntu2210",
-        "ubuntu2210_root",
-        "ubuntu2204",
-        "ubuntu2204_root",
-        "ubuntu2004",
-        "ubuntu2004_root",
-    ]
-}
-
-group "alpine" {
-    targets = [
-        "alpine_318",
-        "alpine_318_root",
-        "alpine_317",
-        "alpine_317_root",
-        "alpine_316",
-        "alpine_316_root",
-        "alpine_315",
-        "alpine_315_root",
+        "latest",
+        "debian",
+        "ubuntu",
+        "alpine",
     ]
 }
 
@@ -65,13 +14,20 @@ target "cross" {
     ]
 }
 
-target "root" {
-    args = {
-        USERNAME = "root"
-    }
+// Debian
+
+group "latest" {
+    targets = [
+        "debian12",
+    ]
 }
 
-// Debian
+group "debian" {
+    targets = [
+        "debian11",
+        "debian10",
+    ]
+}
 
 target "debian_base" {
     dockerfile = "./dockerfiles/debian/base.Dockerfile"
@@ -86,13 +42,6 @@ target "debian_nonroot" {
 }
 
 group "debian12" {
-    targets = [
-        "debian12_base",
-        "debian12_deploy",
-    ]
-}
-
-group "debian12_deploy" {
     targets = [
         "debian12_nonroot",
         "debian12_root",
@@ -133,7 +82,14 @@ target "debian12_nonroot" {
     ]
 }
 
-target "debian11" {
+group "debian11" {
+    targets = [
+        "debian11_nonroot",
+        "debian11_root",
+    ]
+}
+
+target "debian11_base" {
     inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "bullseye"
@@ -163,7 +119,14 @@ target "debian11_nonroot" {
     ]
 }
 
-target "debian10" {
+group "debian10" {
+    targets = [
+        "debian10_nonroot",
+        "debian10_root",
+    ]
+}
+
+target "debian10_base" {
     inherits = ["debian_base", "cross"]
     args = {
         DEBIAN_VERSION = "buster"
@@ -194,62 +157,131 @@ target "debian10_nonroot" {
 
 // Ubuntu
 
-target "ubuntu" {
-    dockerfile = "./dockerfiles/ubuntu/Dockerfile"
+group "ubuntu" {
+    targets = [
+        "ubuntu2304",
+        "ubuntu2210",
+        "ubuntu2204",
+        "ubuntu2004",
+    ]
 }
 
-target "ubuntu2304" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304",
-        "ghcr.io/sambyeol/latex-devcontainer:lunar",
+target "ubuntu_base" {
+    dockerfile = "./dockerfiles/ubuntu/base.Dockerfile"
+}
+
+target "ubuntu_root" {
+    dockerfile = "./dockerfiles/ubuntu/root.Dockerfile"
+}
+
+target "ubuntu_nonroot" {
+    dockerfile = "./dockerfiles/ubuntu/nonroot.Dockerfile"
+}
+
+group "ubuntu2304" {
+    targets = [
+        "ubuntu2304_nonroot",
+        "ubuntu2304_root",
     ]
+}
+
+target "ubuntu2304_base" {
+    inherits = ["ubuntu_base", "cross"]
     args = {
         UBUNTU_VERSION = "23.04"
     }
 }
 
+target "ubuntu2304_nonroot" {
+    inherits = ["ubuntu_nonroot", "cross"]
+    contexts = {
+        base = "target:ubuntu2304_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304",
+        "ghcr.io/sambyeol/latex-devcontainer:lunar",
+    ]
+}
+
 target "ubuntu2304_root" {
-    inherits = ["ubuntu", "ubuntu2304", "cross", "root"]
+    inherits = ["ubuntu_root", "cross"]
+    contexts = {
+        base = "target:ubuntu2304_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304-root",
         "ghcr.io/sambyeol/latex-devcontainer:lunar-root",
     ]
 }
 
-target "ubuntu2210" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210",
-        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
+
+group "ubuntu2210" {
+    targets = [
+        "ubuntu2210_nonroot",
+        "ubuntu2210_root",
     ]
+}
+
+target "ubuntu2210_base" {
+    inherits = ["ubuntu_base", "cross"]
     args = {
         UBUNTU_VERSION = "22.10"
     }
 }
 
+target "ubuntu2210_nonroot" {
+    inherits = ["ubuntu_nonroot", "cross"]
+    contexts = {
+        base = "target:ubuntu2210_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210",
+        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
+    ]
+}
+
 target "ubuntu2210_root" {
-    inherits = ["ubuntu", "ubuntu2210", "cross", "root"]
+    inherits = ["ubuntu_root", "cross"]
+    contexts = {
+        base = "target:ubuntu2210_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210-root",
         "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
     ]
 }
 
-target "ubuntu2204" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204",
-        "ghcr.io/sambyeol/latex-devcontainer:jammy",
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu",
+group "ubuntu2204" {
+    targets = [
+        "ubuntu2204_nonroot",
+        "ubuntu2204_root",
     ]
+}
+
+target "ubuntu2204_base" {
+    inherits = ["ubuntu_base", "cross"]
     args = {
         UBUNTU_VERSION = "22.04"
     }
 }
 
+target "ubuntu2204_nonroot" {
+    inherits = ["ubuntu_nonroot", "cross"]
+    contexts = {
+        base = "target:ubuntu2204_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204",
+        "ghcr.io/sambyeol/latex-devcontainer:jammy",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu",
+    ]
+}
+
 target "ubuntu2204_root" {
-    inherits = ["ubuntu", "ubuntu2204", "cross", "root"]
+    inherits = ["ubuntu_root", "cross"]
+    contexts = {
+        base = "target:ubuntu2204_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204-root",
         "ghcr.io/sambyeol/latex-devcontainer:jammy-root",
@@ -257,99 +289,175 @@ target "ubuntu2204_root" {
     ]
 }
 
-target "ubuntu2004" {
-    inherits = ["ubuntu", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004",
-        "ghcr.io/sambyeol/latex-devcontainer:focal"
+group "ubuntu2004" {
+    targets = [
+        "ubuntu2004_nonroot",
+        "ubuntu2004_root",
     ]
+}
+
+target "ubuntu2004_base" {
+    inherits = ["ubuntu_base", "cross"]
     args = {
         UBUNTU_VERSION = "20.04"
     }
 }
 
+target "ubuntu2004_nonroot" {
+    inherits = ["ubuntu_nonroot", "cross"]
+    contexts = {
+        base = "target:ubuntu2004_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004",
+        "ghcr.io/sambyeol/latex-devcontainer:focal",
+    ]
+}
+
 target "ubuntu2004_root" {
-    inherits = ["ubuntu", "ubuntu2004", "cross", "root"]
+    inherits = ["ubuntu_root", "cross"]
+    contexts = {
+        base = "target:ubuntu2004_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004-root",
-        "ghcr.io/sambyeol/latex-devcontainer:focal-root"
+        "ghcr.io/sambyeol/latex-devcontainer:focal-root",
     ]
 }
 
 // Alpine
 
-target "alpine" {
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
+group "alpine" {
+    targets = [
+        "alpine_318",
+        "alpine_317",
+        "alpine_316",
+        "alpine_315",
+    ]
 }
 
-target "alpine_318" {
-    inherits = ["alpine", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine",
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18",
+target "alpine_base" {
+    dockerfile = "./dockerfiles/alpine/base.Dockerfile"
+}
+
+target "alpine_nonroot" {
+    dockerfile = "./dockerfiles/alpine/nonroot.Dockerfile"
+}
+
+target "alpine_root" {
+    dockerfile = "./dockerfiles/alpine/root.Dockerfile"
+}
+
+group "alpine_318" {
+    targets = [
+        "alpine_318_root",
+        "alpine_318_nonroot",
     ]
+}
+
+target "alpine_318_base" {
+    inherits = ["alpine_base", "cross"]
     args = {
         ALPINE_VERSION = "3.18"
     }
 }
 
-target "alpine_318_root" {
-    inherits = ["alpine", "alpine_318", "cross", "root"]
+target "alpine_318_nonroot" {
+    inherits = ["alpine_nonroot", "cross"]
+    contexts = {
+        base = "target:alpine_318_base"
+    }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18",
+    ]
+}
+
+target "alpine_318_root" {
+    inherits = ["alpine_root", "cross"]
+    contexts = {
+        base = "target:alpine_318_base"
+    }
+    tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18-root",
     ]
 }
 
-target "alpine_317" {
-    inherits = ["alpine", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine",
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.17",
-    ]
+target "alpine_317_base" {
+    inherits = ["alpine_base", "cross"]
     args = {
         ALPINE_VERSION = "3.17"
     }
 }
 
-target "alpine_317_root" {
-    inherits = ["alpine", "alpine_317", "cross", "root"]
+target "alpine_317_nonroot" {
+    inherits = ["alpine_nonroot", "cross"]
+    contexts = {
+        base = "target:alpine_317_base"
+    }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.17",
+    ]
+}
+
+target "alpine_317_root" {
+    inherits = ["alpine_root", "cross"]
+    contexts = {
+        base = "target:alpine_317_base"
+    }
+    tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.17-root",
     ]
 }
 
-target "alpine_316" {
-    inherits = ["alpine", "cross"]
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16",
-    ]
+target "alpine_316_base" {
+    inherits = ["alpine_base", "cross"]
     args = {
         ALPINE_VERSION = "3.16"
     }
 }
 
+target "alpine_316_nonroot" {
+    inherits = ["alpine_nonroot", "cross"]
+    contexts = {
+        base = "target:alpine_316_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16",
+    ]
+}
+
 target "alpine_316_root" {
-    inherits = ["alpine", "alpine_316", "cross", "root"]
+    inherits = ["alpine_root", "cross"]
+    contexts = {
+        base = "target:alpine_316_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16-root",
     ]
 }
 
-target "alpine_315" {
-    inherits = ["alpine", "cross"]
-    dockerfile = "./dockerfiles/alpine/Dockerfile"
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15"
-    ]
+target "alpine_315_base" {
+    inherits = ["alpine_base", "cross"]
     args = {
         ALPINE_VERSION = "3.15"
     }
 }
 
+target "alpine_315_nonroot" {
+    inherits = ["alpine_nonroot", "cross"]
+    contexts = {
+        base = "target:alpine_315_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15",
+    ]
+}
+
 target "alpine_315_root" {
-    inherits = ["alpine", "alpine_315", "cross", "root"]
+    inherits = ["alpine_root", "cross"]
+    contexts = {
+        base = "target:alpine_315_base"
+    }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15-root"
     ]
