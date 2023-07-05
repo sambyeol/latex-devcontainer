@@ -382,6 +382,13 @@ target "alpine_318_root" {
     ]
 }
 
+group "alpine_317" {
+    targets = [
+        "alpine_317_root",
+        "alpine_317_nonroot",
+    ]
+}
+
 target "alpine_317_base" {
     inherits = ["alpine_base", "cross"]
     args = {
@@ -409,6 +416,13 @@ target "alpine_317_root" {
     ]
 }
 
+group "alpine_316" {
+    targets = [
+        "alpine_316_root",
+        "alpine_316_nonroot",
+    ]
+}
+
 target "alpine_316_base" {
     inherits = ["alpine_base", "cross"]
     args = {
@@ -433,6 +447,13 @@ target "alpine_316_root" {
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16-root",
+    ]
+}
+
+group "alpine_315" {
+    targets = [
+        "alpine_315_root",
+        "alpine_315_nonroot",
     ]
 }
 
