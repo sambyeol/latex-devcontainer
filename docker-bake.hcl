@@ -1,12 +1,24 @@
 group "default" {
     targets = [
+        "debian",
+        "ubuntu",
+        "alpine",
+    ]
+}
+
+group "debian" {
+    targets = [
         "debian12",
         "debian12_root",
         "debian11",
         "debian11_root",
         "debian10",
         "debian10_root",
+    ]
+}
 
+group "ubuntu" {
+    targets = [
         "ubuntu2304",
         "ubuntu2304_root",
         "ubuntu2210",
@@ -15,7 +27,11 @@ group "default" {
         "ubuntu2204_root",
         "ubuntu2004",
         "ubuntu2004_root",
+    ]
+}
 
+group "alpine" {
+    targets = [
         "alpine_318",
         "alpine_318_root",
         "alpine_317",

@@ -30,3 +30,14 @@ jobs:
       - uses: docker/bake-action@v3
         with:
           push: true
+          targets: alpine
+
+      - uses: docker/bake-action@v3
+        with:
+          push: true
+          targets: ubuntu
+
+      - uses: docker/bake-action@v3
+        with:
+          push: true
+          targets: debian    
