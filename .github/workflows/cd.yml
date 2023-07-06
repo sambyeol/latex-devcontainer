@@ -18,8 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - id: find-targets
         run: |
-          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/"\1"/')
-          content=$(echo $content | grep -v -e "debian_\(non\)\?root" -e "ubuntu_\(non\)\?root" -e "alpine_\(non\)\?root" | tr '\n' ',' | sed 's/,*$//')
+          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/"\1"/' | grep -v -e "debian_\(non\)\?root" -e "ubuntu_\(non\)\?root" -e "alpine_\(non\)\?root" | tr '\n' ',' | sed 's/,*$//')
           echo "targets=[$content]" >> ${GITHUB_OUTPUT}
     outputs:
       targets: ${{ steps.find-targets.outputs.targets }}
