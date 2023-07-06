@@ -21,7 +21,7 @@ jobs:
         # https://github.com/orgs/community/discussions/26288
         run: |
           content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/\1/' | tr '\n' ',')
-          echo "targets=$content" >> ${GITHUB_OUTPUT}
+          echo "targets=[$content]" >> ${GITHUB_OUTPUT}
     outputs:
       targets: ${{ toJSON(steps.find-targets.outputs.targets) }}
 
