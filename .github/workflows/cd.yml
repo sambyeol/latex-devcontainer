@@ -20,13 +20,10 @@ jobs:
         # escape some characters to print multiline string
         # https://github.com/orgs/community/discussions/26288
         run: |
-          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target=\1/')
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          echo $content >> ${GITHUB_OUTPUT}
+          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/\1/' | tr '\n' ',')
+          echo "targets=$content" >> ${GITHUB_OUTPUT}
     outputs:
-      targets: ${{ toJSON(steps.find-targets.outputs.target) }}
+      targets: ${{ toJSON(steps.find-targets.outputs.targets) }}
 
   build-and-deploy:
     runs-on: ubuntu-latest
