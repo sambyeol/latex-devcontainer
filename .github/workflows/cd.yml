@@ -41,9 +41,11 @@ jobs:
       # https://github.com/actions/runner-images/issues/2840
       - name: Free spaces
         run: |
-          sudo rm -rf /usr/share/dotnet || true
-          sudo rm -rf /opt/ghc || true
-          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf ${AGENT_TOOLSDIRECTORY}
+          sudo docker rmi $(docker image ls -aq) || true
 
       - uses: actions/checkout@v3
 
