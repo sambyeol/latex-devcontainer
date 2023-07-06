@@ -17,7 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: find-targets
-        run: cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target="\1"/' >> ${GITHUB_OUTPUT}
+        # escape some characters to print multiline string
+        # https://github.com/orgs/community/discussions/26288
+        run: |
+          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target=\1/')
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          echo $content >> ${GITHUB_OUTPUT}
     outputs:
       targets: ${{ toJSON(steps.find-targets.outputs.target) }}
 
