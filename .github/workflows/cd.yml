@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: find-targets
-        run: cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target=\1/' >> ${GITHUB_OUTPUT}
+        run: cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target="\1"/' >> ${GITHUB_OUTPUT}
     outputs:
       targets: ${{ toJSON(steps.find-targets.outputs.target) }}
 
