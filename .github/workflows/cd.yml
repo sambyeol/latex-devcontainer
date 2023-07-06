@@ -37,6 +37,14 @@ jobs:
         target: ${{ fromJSON(needs.find-targets.outputs.targets) }}
 
     steps:
+      # Free some spaces to avoid "No space left on device" error
+      # https://github.com/actions/runner-images/issues/2840
+      - name: Free spaces
+        run: |
+          sudo rm -rf /usr/share/dotnet || true
+          sudo rm -rf /opt/ghc || true
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY" || true
+
       - uses: actions/checkout@v3
 
       - uses: docker/setup-qemu-action@v2
