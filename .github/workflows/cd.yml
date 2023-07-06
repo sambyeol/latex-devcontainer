@@ -19,7 +19,7 @@ jobs:
       - id: find-targets
         run: cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/target=\1/' >> ${GITHUB_OUTPUT}
     outputs:
-      - targets: ${{ toJSON(steps.find-targets.outputs.target) }}
+      targets: ${{ toJSON(steps.find-targets.outputs.target) }}
 
   build-and-deploy:
     runs-on: ubuntu-latest
