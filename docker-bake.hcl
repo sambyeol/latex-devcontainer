@@ -7,6 +7,12 @@ group "default" {
     ]
 }
 
+group "latest" {
+    targets = [
+        "debian12",
+    ]
+}
+
 target "cross" {
     platforms = [
         "linux/amd64",
@@ -16,14 +22,9 @@ target "cross" {
 
 // Debian
 
-group "latest" {
-    targets = [
-        "debian12",
-    ]
-}
-
 group "debian" {
     targets = [
+        "debian12",
         "debian11",
         "debian10",
     ]
@@ -61,7 +62,7 @@ target "debian12_root" {
         base = "target:debian12_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian12-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-12-root",
         "ghcr.io/sambyeol/latex-devcontainer:bookworm-root",
         "ghcr.io/sambyeol/latex-devcontainer:debian-root",
         "ghcr.io/sambyeol/latex-devcontainer:latest-root",
@@ -75,7 +76,7 @@ target "debian12_nonroot" {
         base = "target:debian12_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian12",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-12",
         "ghcr.io/sambyeol/latex-devcontainer:bookworm",
         "ghcr.io/sambyeol/latex-devcontainer:debian",
         "ghcr.io/sambyeol/latex-devcontainer:latest"
@@ -103,7 +104,7 @@ target "debian11_root" {
         base = "target:debian11_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian11-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-11-root",
         "ghcr.io/sambyeol/latex-devcontainer:bullseye-root",
     ]
 }
@@ -114,7 +115,7 @@ target "debian11_nonroot" {
         base = "target:debian11_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian11",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-11",
         "ghcr.io/sambyeol/latex-devcontainer:bullseye",
     ]
 }
@@ -139,7 +140,7 @@ target "debian10_root" {
         base = "target:debian10_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian10-root",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-10-root",
         "ghcr.io/sambyeol/latex-devcontainer:buster-root",
     ]
 }
@@ -150,7 +151,7 @@ target "debian10_nonroot" {
         base = "target:debian10_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:debian10",
+        "ghcr.io/sambyeol/latex-devcontainer:debian-10",
         "ghcr.io/sambyeol/latex-devcontainer:buster",
     ]
 }
@@ -198,7 +199,7 @@ target "ubuntu2304_nonroot" {
         base = "target:ubuntu2304_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.04",
         "ghcr.io/sambyeol/latex-devcontainer:lunar",
     ]
 }
@@ -209,7 +210,7 @@ target "ubuntu2304_root" {
         base = "target:ubuntu2304_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2304-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.04-root",
         "ghcr.io/sambyeol/latex-devcontainer:lunar-root",
     ]
 }
@@ -235,7 +236,7 @@ target "ubuntu2210_nonroot" {
         base = "target:ubuntu2210_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.10",
         "ghcr.io/sambyeol/latex-devcontainer:kinetic",
     ]
 }
@@ -246,7 +247,7 @@ target "ubuntu2210_root" {
         base = "target:ubuntu2210_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2210-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.10-root",
         "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
     ]
 }
@@ -271,7 +272,7 @@ target "ubuntu2204_nonroot" {
         base = "target:ubuntu2204_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.04",
         "ghcr.io/sambyeol/latex-devcontainer:jammy",
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu",
     ]
@@ -283,7 +284,7 @@ target "ubuntu2204_root" {
         base = "target:ubuntu2204_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2204-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.04-root",
         "ghcr.io/sambyeol/latex-devcontainer:jammy-root",
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu-root",
     ]
@@ -309,7 +310,7 @@ target "ubuntu2004_nonroot" {
         base = "target:ubuntu2004_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-20.04",
         "ghcr.io/sambyeol/latex-devcontainer:focal",
     ]
 }
@@ -320,7 +321,7 @@ target "ubuntu2004_root" {
         base = "target:ubuntu2004_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu2004-root",
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-20.04-root",
         "ghcr.io/sambyeol/latex-devcontainer:focal-root",
     ]
 }
