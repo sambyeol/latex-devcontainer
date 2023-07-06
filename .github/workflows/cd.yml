@@ -45,14 +45,26 @@ jobs:
       #     push: true
       #     targets: debian    
 
-      - name: Build latest
+      - name: Build latest_base
         uses: docker/bake-action@v3
         with:
           # push: true
           targets: debian12_base
+          set: |
+            *.cache-to=type=local,mode=max,dest=/tmp/.buildx-cache-new
       
+      # Temp fix
+      # https://github.com/docker/build-push-action/issues/252
+      # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
       - name: Build latest
         uses: docker/bake-action@v3
         with:
           push: true
           targets: latest
+          set: |
+            *.cache-from=type=local,src=/tmp/.buildx-cache
