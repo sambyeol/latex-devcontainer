@@ -32,7 +32,7 @@ jobs:
 
     strategy:
       matrix:
-        target: ${{ fromJson(needs.find-targets.outputs.targets) }}
+        target: ${{ fromJSON(needs.find-targets.outputs.targets) }}
 
     steps:
       - uses: actions/checkout@v3
