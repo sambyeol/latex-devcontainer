@@ -17,13 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: find-targets
-        # escape some characters to print multiline string
-        # https://github.com/orgs/community/discussions/26288
         run: |
           content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/\1/' | tr '\n' ',')
           echo "targets=[$content]" >> ${GITHUB_OUTPUT}
     outputs:
-      targets: ${{ toJSON(steps.find-targets.outputs.targets) }}
+      targets: ${{ steps.find-targets.outputs.targets }}
 
   build-and-deploy:
     runs-on: ubuntu-latest
