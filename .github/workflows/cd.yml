@@ -41,7 +41,7 @@ jobs:
       # https://github.com/actions/runner-images/issues/2840
       # https://github.com/easimon/maximize-build-space
       - name: Free some spaces
-        runs: |
+        run: |
           echo "Available storage:"
           df -h
           echo
