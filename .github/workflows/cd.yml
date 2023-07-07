@@ -39,13 +39,14 @@ jobs:
     steps:
       # Free some spaces to avoid "No space left on device" error
       # https://github.com/actions/runner-images/issues/2840
-      - name: Free spaces
-        run: |
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/share/boost
-          sudo rm -rf ${AGENT_TOOLSDIRECTORY}
-          sudo docker rmi $(docker image ls -aq) || true
+      # https://github.com/easimon/maximize-build-space
+      - uses: easimon/maximize-build-space@v7
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
 
       - uses: actions/checkout@v3
 
