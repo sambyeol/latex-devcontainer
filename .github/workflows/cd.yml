@@ -40,13 +40,21 @@ jobs:
       # Free some spaces to avoid "No space left on device" error
       # https://github.com/actions/runner-images/issues/2840
       # https://github.com/easimon/maximize-build-space
-      - uses: easimon/maximize-build-space@v7
-        with:
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-          remove-codeql: 'true'
-          remove-docker-images: 'true'
+      - name: Free some spaces
+        runs: |
+          echo "Available storage:"
+          df -h
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /hostedtoolcache/CodeQL
+          sudo rm -rf $AGENT_TOOLSDIRECTORY
+          sudo docker image prune --all --force
+          echo "Available storage:"
+          df -h
+          echo
 
       - uses: actions/checkout@v3
 
