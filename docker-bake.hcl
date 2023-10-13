@@ -160,8 +160,8 @@ target "debian10_nonroot" {
 
 group "ubuntu" {
     targets = [
+        "ubuntu2310",
         "ubuntu2304",
-        "ubuntu2210",
         "ubuntu2204",
         "ubuntu2004",
     ]
@@ -177,6 +177,44 @@ target "ubuntu_root" {
 
 target "ubuntu_nonroot" {
     dockerfile = "./dockerfiles/ubuntu/nonroot.Dockerfile"
+}
+
+
+
+group "ubuntu2310" {
+    targets = [
+        "ubuntu2310_nonroot",
+        "ubuntu2310_root",
+    ]
+}
+
+target "ubuntu2310_base" {
+    inherits = ["ubuntu_base", "cross"]
+    args = {
+        UBUNTU_VERSION = "23.10"
+    }
+}
+
+target "ubuntu2310_nonroot" {
+    inherits = ["ubuntu_nonroot", "cross"]
+    contexts = {
+        base = "target:ubuntu2310_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.10",
+        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
+    ]
+}
+
+target "ubuntu2310_root" {
+    inherits = ["ubuntu_root", "cross"]
+    contexts = {
+        base = "target:ubuntu2310_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.10-root",
+        "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
+    ]
 }
 
 group "ubuntu2304" {
@@ -212,43 +250,6 @@ target "ubuntu2304_root" {
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.04-root",
         "ghcr.io/sambyeol/latex-devcontainer:lunar-root",
-    ]
-}
-
-
-group "ubuntu2210" {
-    targets = [
-        "ubuntu2210_nonroot",
-        "ubuntu2210_root",
-    ]
-}
-
-target "ubuntu2210_base" {
-    inherits = ["ubuntu_base", "cross"]
-    args = {
-        UBUNTU_VERSION = "22.10"
-    }
-}
-
-target "ubuntu2210_nonroot" {
-    inherits = ["ubuntu_nonroot", "cross"]
-    contexts = {
-        base = "target:ubuntu2210_base"
-    }
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.10",
-        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
-    ]
-}
-
-target "ubuntu2210_root" {
-    inherits = ["ubuntu_root", "cross"]
-    contexts = {
-        base = "target:ubuntu2210_base"
-    }
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:ubuntu-22.10-root",
-        "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
     ]
 }
 
@@ -369,6 +370,7 @@ target "alpine_318_nonroot" {
         base = "target:alpine_318_base"
     }
     tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3",
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18",
     ]
 }
@@ -379,6 +381,7 @@ target "alpine_318_root" {
         base = "target:alpine_318_base"
     }
     tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3-root",
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18-root",
     ]
 }
