@@ -12,7 +12,6 @@ RUN apk add --no-cache \
         git \
         perl-dev \
         openssh-client \
-        sudo \
         texlive-full \
         zsh
 RUN yes | cpan install \
