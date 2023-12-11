@@ -202,7 +202,7 @@ target "ubuntu2310_nonroot" {
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.10",
-        "ghcr.io/sambyeol/latex-devcontainer:kinetic",
+        "ghcr.io/sambyeol/latex-devcontainer:mantic",
     ]
 }
 
@@ -213,7 +213,7 @@ target "ubuntu2310_root" {
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:ubuntu-23.10-root",
-        "ghcr.io/sambyeol/latex-devcontainer:kinetic-root",
+        "ghcr.io/sambyeol/latex-devcontainer:mantic-root",
     ]
 }
 
@@ -331,10 +331,48 @@ target "ubuntu2004_root" {
 
 group "alpine" {
     targets = [
+        "alpine_319",
         "alpine_318",
         "alpine_317",
         "alpine_316",
-        "alpine_315",
+    ]
+}
+
+group "alpine_319" {
+    targets = [
+        "alpine_319_root",
+        "alpine_319_nonroot",
+    ]
+}
+
+target "alpine_319_base" {
+    inherits = ["alpine_base", "cross"]
+    args = {
+        ALPINE_VERSION = "3.19"
+    }
+}
+
+target "alpine_319_nonroot" {
+    inherits = ["alpine_nonroot", "cross"]
+    contexts = {
+        base = "target:alpine_319_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.19",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine",
+    ]
+}
+
+target "alpine_319_root" {
+    inherits = ["alpine_root", "cross"]
+    contexts = {
+        base = "target:alpine_319_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.19-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-3-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
     ]
 }
 
@@ -370,7 +408,6 @@ target "alpine_318_nonroot" {
         base = "target:alpine_318_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3",
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18",
     ]
 }
@@ -381,7 +418,6 @@ target "alpine_318_root" {
         base = "target:alpine_318_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3-root",
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.18-root",
     ]
 }
@@ -451,39 +487,5 @@ target "alpine_316_root" {
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:alpine-3.16-root",
-    ]
-}
-
-group "alpine_315" {
-    targets = [
-        "alpine_315_root",
-        "alpine_315_nonroot",
-    ]
-}
-
-target "alpine_315_base" {
-    inherits = ["alpine_base", "cross"]
-    args = {
-        ALPINE_VERSION = "3.15"
-    }
-}
-
-target "alpine_315_nonroot" {
-    inherits = ["alpine_nonroot", "cross"]
-    contexts = {
-        base = "target:alpine_315_base"
-    }
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15",
-    ]
-}
-
-target "alpine_315_root" {
-    inherits = ["alpine_root", "cross"]
-    contexts = {
-        base = "target:alpine_315_base"
-    }
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:alpine-3.15-root"
     ]
 }
