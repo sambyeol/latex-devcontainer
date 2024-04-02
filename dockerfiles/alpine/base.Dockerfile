@@ -18,8 +18,8 @@ RUN yes | cpan install \
         YAML::Tiny
 
 ARG LATEX_VERSION
-WORKDIR /tmp
-RUN curl -L https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzf - \
+RUN cd /tmp \
+    && curl -L https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzf - \
     && cd ./install-tl-* \
     && perl ./install-tl --no-interaction \
     && ls -l /usr/local/texlive/${LATEX_VERSION}/bin/${TARGETARCH/amd/x86_}-${TARGETOS} \
