@@ -33,7 +33,7 @@ target "debian_base" {
     dockerfile = "./dockerfiles/debian/base.Dockerfile"
     args = {
         LATEX_VERSION=2024
-        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
+        CTAN_MIRROR="https://mirror.navercorp.com/CTAN/systems/texlive/tlnet"
     }
 }
 
