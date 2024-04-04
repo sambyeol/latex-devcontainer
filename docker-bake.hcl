@@ -31,6 +31,7 @@ group "debian" {
 
 target "debian_base" {
     dockerfile = "./dockerfiles/debian/base.Dockerfile"
+    inherits = ["cross"]
     args = {
         LATEX_VERSION=2024
         CTAN_MIRROR="https://mirror.navercorp.com/CTAN/systems/texlive/tlnet"
@@ -79,6 +80,7 @@ group "ubuntu" {
 
 target "ubuntu_base" {
     dockerfile = "./dockerfiles/ubuntu/base.Dockerfile"
+    inherits = ["cross"]
     args = {
         LATEX_VERSION=2024
     }
@@ -120,6 +122,7 @@ group "alpine" {
 
 target "alpine_base" {
     dockerfile = "./dockerfiles/alpine/base.Dockerfile"
+    inherits = ["cross"]
     args = {
         LATEX_VERSION=2024
     }
