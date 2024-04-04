@@ -18,10 +18,11 @@ RUN yes | cpan install \
         YAML::Tiny
 
 ARG LATEX_VERSION
+ARG CTAN_MIRROR=https://mirror.ctan.org/systems/texlive/tlnet
 RUN cd /tmp \
-    && curl -L https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzf - \
+    && curl -L ${CTAN_MIRROR}/install-tl-unx.tar.gz | tar -xzf - \
     && cd ./install-tl-* \
-    && perl ./install-tl --no-interaction \
+    && perl ./install-tl --no-interaction --location ${CTAN_MIRROR} \
     && ls -l /usr/local/texlive/${LATEX_VERSION}/bin/${TARGETARCH/amd/x86_}-${TARGETOS} \
     && rm -r /tmp/*
 
