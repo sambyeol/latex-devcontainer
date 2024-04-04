@@ -33,7 +33,6 @@ target "debian_base" {
     dockerfile = "./dockerfiles/debian/base.Dockerfile"
     inherits = ["cross"]
     args = {
-        LATEX_VERSION=2024
         CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
     }
 }
@@ -81,7 +80,6 @@ target "ubuntu_base" {
     dockerfile = "./dockerfiles/ubuntu/base.Dockerfile"
     inherits = ["cross"]
     args = {
-        LATEX_VERSION=2024
         CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
     }
 }
