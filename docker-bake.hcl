@@ -64,7 +64,6 @@ target "debian_root" {
         "ghcr.io/sambyeol/latex-devcontainer:debian-root",
         
         "ghcr.io/sambyeol/latex-devcontainer:2024-root",
-        "ghcr.io/sambyeol/latex-devcontainer:latest-root",
         "ghcr.io/sambyeol/latex-devcontainer:root",
     ]
 }
