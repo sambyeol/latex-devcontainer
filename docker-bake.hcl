@@ -83,6 +83,7 @@ target "ubuntu_base" {
     inherits = ["cross"]
     args = {
         LATEX_VERSION=2024
+        CTAN_MIRROR="https://mirror.navercorp.com/CTAN/systems/texlive/tlnet"
     }
 }
 
@@ -125,6 +126,7 @@ target "alpine_base" {
     inherits = ["cross"]
     args = {
         LATEX_VERSION=2024
+        CTAN_MIRROR="https://mirror.navercorp.com/CTAN/systems/texlive/tlnet"
     }
 }
 
