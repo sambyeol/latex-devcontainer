@@ -123,10 +123,6 @@ group "alpine" {
 target "alpine_base" {
     dockerfile = "./dockerfiles/alpine/base.Dockerfile"
     inherits = ["cross"]
-    args = {
-        LATEX_VERSION=2024
-        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
-    }
 }
 
 target "alpine_nonroot" {
@@ -136,7 +132,7 @@ target "alpine_nonroot" {
         base = "target:alpine_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:2024-alpine",
+        "ghcr.io/sambyeol/latex-devcontainer:2023-alpine",
         "ghcr.io/sambyeol/latex-devcontainer:alpine",
     ]
 }
@@ -148,7 +144,7 @@ target "alpine_root" {
         base = "target:alpine_base"
     }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:2024-alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:2023-alpine-root",
         "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
     ]
 }
