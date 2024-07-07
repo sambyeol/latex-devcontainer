@@ -32,6 +32,9 @@ group "debian" {
 target "debian_base" {
     dockerfile = "./dockerfiles/debian/base.Dockerfile"
     inherits = ["cross"]
+    args = {
+        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
+    }
 }
 
 target "debian_nonroot" {
@@ -76,6 +79,9 @@ group "ubuntu" {
 target "ubuntu_base" {
     dockerfile = "./dockerfiles/ubuntu/base.Dockerfile"
     inherits = ["cross"]
+    args = {
+        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
+    }
 }
 
 target "ubuntu_nonroot" {
