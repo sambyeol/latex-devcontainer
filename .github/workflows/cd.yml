@@ -32,6 +32,8 @@ jobs:
     needs:
       - find-targets
 
+    timeout-minutes: 1440
+
     strategy:
       matrix:
         target: ${{ fromJSON(needs.find-targets.outputs.targets) }}
