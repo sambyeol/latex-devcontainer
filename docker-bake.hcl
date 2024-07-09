@@ -66,3 +66,44 @@ target "debian_root" {
         "ghcr.io/sambyeol/latex-devcontainer:root",
     ]
 }
+
+// Alpine
+
+group "alpine" {
+    targets = [
+        "alpine_nonroot",
+        "alpine_root",
+    ]
+}
+
+target "alpine_base" {
+    dockerfile = "./dockerfiles/alpine/base.Dockerfile"
+    inherits = ["cross"]
+    args = {
+        TL_VERSION="20240210.69778-r2"
+    }
+}
+
+target "alpine_nonroot" {
+    dockerfile = "./dockerfiles/alpine/nonroot.Dockerfile"
+    inherits = ["cross"]
+    contexts = {
+        base = "target:alpine_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:2024-alpine",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine",
+    ]
+}
+
+target "alpine_root" {
+    dockerfile = "./dockerfiles/alpine/root.Dockerfile"
+    inherits = ["cross"]
+    contexts = {
+        base = "target:alpine_base"
+    }
+    tags = [
+        "ghcr.io/sambyeol/latex-devcontainer:2024-alpine-root",
+        "ghcr.io/sambyeol/latex-devcontainer:alpine-root",
+    ]
+}
