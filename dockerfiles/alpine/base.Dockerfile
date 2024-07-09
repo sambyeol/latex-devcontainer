@@ -11,7 +11,7 @@ RUN apk add --no-cache \
         git \
         perl-dev \
         openssh-client \
-        texlive-${TL_VERSION} \
+        texlive=${TL_VERSION} \
         zsh
 RUN yes | cpan install \
         File::HomeDir \
