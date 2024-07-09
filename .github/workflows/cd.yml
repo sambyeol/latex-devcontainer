@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: "package"
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
 
