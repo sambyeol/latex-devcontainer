@@ -79,7 +79,7 @@ target "alpine_base" {
     dockerfile = "./dockerfiles/alpine/base.Dockerfile"
     inherits = ["cross"]
     args = {
-        TL_VERSION="20240210.69778-r9"
+        TL_VERSION="20240210.69778-r8"
     }
 }
 
