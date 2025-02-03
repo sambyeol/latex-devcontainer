@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.21
 
 LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
 
@@ -11,7 +11,7 @@ RUN apk add --no-cache \
         git \
         perl-dev \
         openssh-client \
-        texlive=${TL_VERSION} \
+        texlive-full=${TL_VERSION} \
         zsh
 RUN yes | cpan install \
         File::HomeDir \
