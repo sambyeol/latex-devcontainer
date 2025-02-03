@@ -2,7 +2,6 @@ group "default" {
     targets = [
         "latest",
         "debian",
-        "ubuntu",
         "alpine",
     ]
 }
@@ -80,7 +79,7 @@ target "alpine_base" {
     dockerfile = "./dockerfiles/alpine/base.Dockerfile"
     inherits = ["cross"]
     args = {
-        TL_VERSION="20240210.69778-r2"
+        TL_VERSION="20240210.69778-r9"
     }
 }
 
