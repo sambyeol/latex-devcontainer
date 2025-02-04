@@ -24,10 +24,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-      - id: find-targets
-        run: |
-          content=$(cat docker-bake.hcl | grep target | grep root | sed 's/target "\(.*\)".*/"\1"/' | tr '\n' ',' | sed 's/,*$//')
-          echo "targets=[$content]" >> ${GITHUB_OUTPUT}
+      - uses: docker/bake-action/subaction/list-targets@v6
+        id: find-targets
+        with:
+          target: default
+
     outputs:
       targets: ${{ steps.find-targets.outputs.targets }}
 
