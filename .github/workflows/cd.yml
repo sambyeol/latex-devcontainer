@@ -16,33 +16,11 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  find-targets:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/bake-action/subaction/matrix@v6
-        id: find-targets
-        with:
-          target: default
-
-    outputs:
-      targets: ${{ steps.find-targets.outputs.targets }}
-
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
-    needs:
-      - find-targets
-
-    strategy:
-      matrix:
-        target: ${{ fromJSON(needs.find-targets.outputs.targets) }}
 
     steps:
       # Free some spaces to avoid "No space left on device" error
@@ -77,8 +55,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build ${{ matrix.target }}
+      - name: Build
         uses: docker/bake-action@v6
         with:
           push: true
-          targets: ${{ matrix.target }}
