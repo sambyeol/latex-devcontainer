@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:trixie
 
 LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
 
@@ -6,8 +6,8 @@ LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devconta
 USER root
 ENV LANGUAGE=C.UTF-8
 ENV LC_ALL=C.UTF-8
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         ca-certificates \
@@ -37,6 +37,5 @@ RUN cd /tmp \
 ENV MANPATH="/opt/texlive/texmf-dist/doc/man:${MANPATH}"
 ENV INFOPATH="/opt/texlive/texmf-dist/doc/info:${INFOPATH}"
 ENV PATH="/opt/texlive/bin/${PLATFORM}:${PATH}"
-
 
 CMD [ "sleep", "infinity" ]
