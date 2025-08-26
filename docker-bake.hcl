@@ -1,7 +1,6 @@
 group "default" {
     targets = [
         "latest",
-        "debian",
     ]
 }
 
@@ -20,47 +19,14 @@ target "cross" {
 
 // Debian
 
-group "debian" {
-    targets = [
-        "debian_nonroot",
-        "debian_root",
-    ]
-}
-
-target "debian_base" {
-    dockerfile = "./dockerfiles/debian/base.Dockerfile"
+target "debian" {
+    dockerfile = "./Dockerfile"
     inherits = ["cross"]
     args = {
         CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
     }
-}
-
-target "debian_nonroot" {
-    dockerfile = "./dockerfiles/debian/nonroot.Dockerfile"
-    inherits = ["cross"]
-    contexts = {
-        base = "target:debian_base"
-    }
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:2025-debian",
-        "ghcr.io/sambyeol/latex-devcontainer:debian",
-        
         "ghcr.io/sambyeol/latex-devcontainer:2025",
         "ghcr.io/sambyeol/latex-devcontainer:latest",
-    ]
-}
-
-target "debian_root" {
-    dockerfile = "./dockerfiles/debian/root.Dockerfile"
-    inherits = ["cross"]
-    contexts = {
-        base = "target:debian_base"
-    }
-    tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:2025-debian-root",
-        "ghcr.io/sambyeol/latex-devcontainer:debian-root",
-        
-        "ghcr.io/sambyeol/latex-devcontainer:2025-root",
-        "ghcr.io/sambyeol/latex-devcontainer:root",
     ]
 }

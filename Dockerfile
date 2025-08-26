@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:trixie
 
 LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devcontainer
 
@@ -6,8 +6,8 @@ LABEL org.opencontainers.image.source=https://github.com/sambyeol/latex-devconta
 USER root
 ENV LANGUAGE=C.UTF-8
 ENV LC_ALL=C.UTF-8
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
     && apt-get install -y --no-install-recommends \
         build-essential \
         ca-certificates \
@@ -15,7 +15,6 @@ RUN apt-get update \
         git \
         ssh-client \
         sudo \
-        zsh \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 RUN yes | cpan install \
         File::HomeDir \
