@@ -6,4 +6,4 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         rsync \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-RUN rsync -avz --progress rsync://mirror.ctan.org/CTAN/systems/texlive/tlnet/ /tmp/tlnet
+RUN rsync -az --info=progress2 rsync://mirror.ctan.org/CTAN/systems/texlive/tlnet/ /tmp/tlnet
