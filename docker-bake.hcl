@@ -29,7 +29,7 @@ target "cache" {
 target "debian" {
     dockerfile = "./Dockerfile"
     inherits = ["cross"]
-    context = {
+    contexts = {
         cache = "target:cache"
     }
     tags = [
