@@ -19,9 +19,6 @@ target "cross" {
 
 target "cache" {
     dockerfile = "./cache.Dockerfile"
-    args = {
-        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
-    }
 }
 
 // Debian

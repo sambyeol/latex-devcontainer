@@ -30,7 +30,7 @@ ARG PLATFORM=${PLATFORM}-${TARGETOS}
 RUN cd /tmp \
     && curl -kL ${CTAN_MIRROR}/install-tl-unx.tar.gz | tar -xzf - \
     && cd ./install-tl-* \
-    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction --repository /tmp/tlnet -texdir /opt/texlive \
+    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction -repository /tmp/tlnet -texdir /opt/texlive \
     && ls -l /opt/texlive/bin/${PLATFORM} \
     && rm -r /tmp/*
 
