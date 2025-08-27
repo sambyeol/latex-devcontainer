@@ -17,13 +17,20 @@ target "cross" {
     ]
 }
 
+target "cache" {
+    dockerfile = "./cache.Dockerfile"
+    args = {
+        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
+    }
+}
+
 // Debian
 
 target "debian" {
     dockerfile = "./Dockerfile"
     inherits = ["cross"]
-    args = {
-        CTAN_MIRROR="https://mirrors.mit.edu/CTAN/systems/texlive/tlnet"
+    context = {
+        cache = "target:cache"
     }
     tags = [
         "ghcr.io/sambyeol/latex-devcontainer:2025",
