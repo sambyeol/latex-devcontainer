@@ -13,13 +13,12 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         ca-certificates \
         curl \
         git \
+        libfile-homedir-perl \
+        liblog-dispatch-perl \
+        libyaml-tiny-perl \
         ssh-client \
         sudo \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-RUN yes | cpan install \
-        File::HomeDir \
-        Log::Dispatch::File \
-        YAML::Tiny
 
 COPY --from=cache /tmp/tlnet /tmp/tlnet
 
