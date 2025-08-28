@@ -20,8 +20,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
         sudo \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-COPY --from=cache /tmp/tlnet /tmp/tlnet
-
 ARG TARGETARCH TARGETOS
 ARG PLATFORM=${TARGETARCH/amd/x86_}
 ARG PLATFORM=${PLATFORM/arm/aarch}
@@ -29,7 +27,7 @@ ARG PLATFORM=${PLATFORM}-${TARGETOS}
 RUN cd /tmp \
     && curl -kL https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzf - \
     && cd ./install-tl-* \
-    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction -repository /tmp/tlnet -texdir /opt/texlive \
+    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction -texdir /opt/texlive \
     && ls -l /opt/texlive/bin/${PLATFORM} \
     && rm -r /tmp/*
 

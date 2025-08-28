@@ -16,11 +16,19 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-latest
+            arch_name: amd64
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+            arch_name: arm64
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
-      packages: write
 
     steps:
       # Free some spaces to avoid "No space left on device" error
@@ -43,10 +51,41 @@ jobs:
           echo
 
       - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build ${{ matrix.arch_name }}
+        uses: docker/bake-action@v6
+        with:
+          targets: debian
+          set: |
+            debian.platform=${{ matrix.platform }}
+            debian.tags=local/latex-devcontainer:${{ matrix.arch_name }}
+            debian.output=type=docker,dest=/tmp/image-${{ matrix.arch_name }}.tar
+
+      - name: Split ${{ matrix.arch_name }} image
+        run: |
+          split -b 2G /tmp/image-${{ matrix.arch_name }}.tar /tmp/image-${{ matrix.arch_name }}.tar.part.
+          ls -la /tmp/image-${{ matrix.arch_name }}.tar.part.*
+
+      - name: Upload ${{ matrix.arch_name }} artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image-${{ matrix.arch_name }}
+          path: /tmp/image-${{ matrix.arch_name }}.tar.part.*
+
+  create-manifest:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
 
       - uses: docker/setup-qemu-action@v3
         with:
-          image: tonistiigi/binfmt:qemu-v9.2.0
+          image: tonistiigi/binfmt:qemu-v9.2.2
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/login-action@v3
@@ -55,7 +94,33 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
+      - name: Download AMD64 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image-amd64
+          path: /tmp/amd64/
+
+      - name: Download ARM64 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image-arm64
+          path: /tmp/arm64/
+
+      - name: Reassemble and load images
+        run: |
+          # Reassemble AMD64 image
+          cat /tmp/amd64/image-amd64.tar.part.* > /tmp/image-amd64.tar
+          docker load -i /tmp/image-amd64.tar
+
+          # Reassemble ARM64 image
+          cat /tmp/arm64/image-arm64.tar.part.* > /tmp/image-arm64.tar
+          docker load -i /tmp/image-arm64.tar
+
+          # Tag images for bake to find them
+          docker tag local/latex-devcontainer:amd64 local/latex-devcontainer:linux-amd64
+          docker tag local/latex-devcontainer:arm64 local/latex-devcontainer:linux-arm64
+
+      - name: Push multi-arch manifest with bake
         uses: docker/bake-action@v6
         with:
           push: true
