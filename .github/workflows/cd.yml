@@ -56,12 +56,11 @@ jobs:
       - name: Build ${{ matrix.arch_name }}
         uses: docker/bake-action@v6
         with:
-          targets: debian
           set: |
-            debian.platform=${{ matrix.platform }}
-            debian.output=type=oci,dest=/tmp/oci-${{ matrix.arch_name }}
+            *.platform=${{ matrix.platform }}
+            *.output=type=oci,dest=/tmp/oci-${{ matrix.arch_name }}
 
-      - name: Compress and split OCI layout cache
+      - name: Compress and split OCI layout
         run: |
           tar -czf /tmp/oci-${{ matrix.arch_name }}.tar.gz -C /tmp oci-${{ matrix.arch_name }}
           split -b 2G /tmp/oci-${{ matrix.arch_name }}.tar.gz /tmp/oci-${{ matrix.arch_name }}.tar.gz.part.
