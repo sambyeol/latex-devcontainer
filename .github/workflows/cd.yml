@@ -59,19 +59,19 @@ jobs:
           targets: debian
           set: |
             debian.platform=${{ matrix.platform }}
-            debian.tags=local/latex-devcontainer:${{ matrix.arch_name }}
-            debian.output=type=docker,dest=/tmp/image-${{ matrix.arch_name }}.tar
+            debian.output=type=oci,dest=/tmp/oci-${{ matrix.arch_name }}
 
-      - name: Split ${{ matrix.arch_name }} image
+      - name: Compress and split OCI layout cache
         run: |
-          split -b 2G /tmp/image-${{ matrix.arch_name }}.tar /tmp/image-${{ matrix.arch_name }}.tar.part.
-          ls -la /tmp/image-${{ matrix.arch_name }}.tar.part.*
+          tar -czf /tmp/oci-${{ matrix.arch_name }}.tar.gz -C /tmp oci-${{ matrix.arch_name }}
+          split -b 2G /tmp/oci-${{ matrix.arch_name }}.tar.gz /tmp/oci-${{ matrix.arch_name }}.tar.gz.part.
+          ls -la /tmp/oci-${{ matrix.arch_name }}.tar.gz.part.*
 
-      - name: Upload ${{ matrix.arch_name }} artifacts
+      - name: Upload ${{ matrix.arch_name }} OCI layout
         uses: actions/upload-artifact@v4
         with:
-          name: docker-image-${{ matrix.arch_name }}
-          path: /tmp/image-${{ matrix.arch_name }}.tar.part.*
+          name: oci-layout-${{ matrix.arch_name }}
+          path: /tmp/oci-${{ matrix.arch_name }}.tar.gz.part.*
 
   create-manifest:
     needs: [build]
@@ -104,29 +104,35 @@ jobs:
           image: tonistiigi/binfmt:qemu-v9.2.2
       - uses: docker/setup-buildx-action@v3
 
-      - name: Download AMD64 artifacts
+      - name: Download and extract AMD64 OCI layout cache
         uses: actions/download-artifact@v4
         with:
-          name: docker-image-amd64
-          path: /tmp/amd64/
-
-      - name: Reassemble AMD64 image
+          name: oci-layout-amd64
+          path: /tmp/amd64-artifacts/
+          
+      - name: Reassemble and extract AMD64 OCI layout
         run: |
-          cat /tmp/amd64/image-amd64.tar.part.* > /tmp/image-amd64.tar
-          docker load -i /tmp/image-amd64.tar
-          rm -rf /tmp/amd64/ /tmp/image-amd64.tar
+          cd /tmp/amd64-artifacts
+          cat oci-amd64.tar.gz.part.* > /tmp/oci-amd64.tar.gz
+          cd /tmp
+          rm -rf /tmp/amd64-artifacts
+          tar -xzf oci-amd64.tar.gz
+          rm -f /tmp/oci-amd64.tar.gz
 
-      - name: Download ARM64 artifacts
+      - name: Download and extract ARM64 OCI layout
         uses: actions/download-artifact@v4
         with:
-          name: docker-image-arm64
-          path: /tmp/arm64/
-
-      - name: Reassemble ARM64 image
+          name: oci-layout-arm64
+          path: /tmp/arm64-artifacts/
+          
+      - name: Reassemble and extract ARM64 OCI layout
         run: |
-          cat /tmp/arm64/image-arm64.tar.part.* > /tmp/image-arm64.tar
-          docker load -i /tmp/image-arm64.tar
-          rm -rf /tmp/arm64/ /tmp/image-arm64.tar
+          cd /tmp/arm64-artifacts
+          cat oci-arm64.tar.gz.part.* > /tmp/oci-arm64.tar.gz
+          cd /tmp
+          rm -rf /tmp/arm64-artifacts
+          tar -xzf oci-arm64.tar.gz
+          rm -f /tmp/oci-arm64.tar.gz
 
       - uses: docker/login-action@v3
         with:
@@ -134,7 +140,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push multi-arch manifest with bake
+      - name: Push multi-arch manifest using OCI cache
         uses: docker/bake-action@v6
         with:
           push: true
+          set: |
+            *.cache-from=type=oci,src=/tmp/oci-amd64
+            *.cache-from=type=oci,src=/tmp/oci-arm64
