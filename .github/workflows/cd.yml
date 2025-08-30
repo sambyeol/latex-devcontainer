@@ -59,6 +59,7 @@ jobs:
           set: |
             latest.platform=${{ matrix.platform }}
             latest.tags=local/latex-devcontainer:${{ matrix.arch_name }}
+            latest.load=true
 
       - name: Clean up build cache
         run: |
