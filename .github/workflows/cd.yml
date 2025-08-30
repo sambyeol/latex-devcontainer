@@ -62,7 +62,9 @@ jobs:
 
       - name: Clean up build cache
         run: |
-          docker buildx prune --all --force || true
+          docker image prune --force
+          docker builder prune --force
+          docker system prune --volumes --force
           echo "Available storage:"
           df -h
           echo
