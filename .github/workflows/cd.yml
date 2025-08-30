@@ -59,20 +59,7 @@ jobs:
           set: |
             latest.platform=${{ matrix.platform }}
             latest.tags=local/latex-devcontainer:${{ matrix.arch_name }}
-            latest.load=true
-
-      - name: Clean up build cache
-        run: |
-          docker image prune --force
-          docker builder prune --force
-          docker system prune --volumes --force
-          echo "Available storage:"
-          df -h
-          echo
-
-      - name: Export image ${{ matrix.arch_name }} to tar
-        run: |
-          docker save -o /tmp/image-${{ matrix.arch_name }}.tar local/latex-devcontainer:${{ matrix.arch_name }}
+            latest.output=type=docker,dest=/tmp/image-${{ matrix.arch_name }}.tar
 
       - name: Split ${{ matrix.arch_name }} image
         run: |
