@@ -81,9 +81,9 @@ jobs:
 
     services:
       registry:
-      image: registry:3.0.0
-      ports:
-        - 5000:5000
+        image: registry:3.0.0
+        ports:
+          - 5000:5000
 
     steps:
       - name: Free some spaces
