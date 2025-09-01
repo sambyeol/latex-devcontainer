@@ -123,6 +123,9 @@ jobs:
           rm -rf /tmp/amd64/ /tmp/image-amd64.tar
           docker tag latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
           docker push localhost:5000/latex-devcontainer:amd64
+          docker rmi latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
+          df -h
+          echo
 
       - name: Download ARM64 artifacts
         uses: actions/download-artifact@v4
@@ -137,6 +140,9 @@ jobs:
           rm -rf /tmp/arm64/ /tmp/image-arm64.tar
           docker tag latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
           docker push localhost:5000/latex-devcontainer:amd64
+          docker rmi latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
+          df -h
+          echo
 
       - name: Create merged manifest
         run: |
