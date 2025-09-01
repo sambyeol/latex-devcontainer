@@ -138,9 +138,9 @@ jobs:
           cat /tmp/arm64/image-arm64.tar.part.* > /tmp/image-arm64.tar
           docker load -i /tmp/image-arm64.tar
           rm -rf /tmp/arm64/ /tmp/image-arm64.tar
-          docker tag latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
-          docker push localhost:5000/latex-devcontainer:amd64
-          docker rmi latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
+          docker tag latex-devcontainer:arm64 localhost:5000/latex-devcontainer:arm64
+          docker push localhost:5000/latex-devcontainer:arm64
+          docker rmi latex-devcontainer:arm64 localhost:5000/latex-devcontainer:arm64
           df -h
           echo
 
