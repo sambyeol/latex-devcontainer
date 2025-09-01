@@ -127,6 +127,12 @@ jobs:
           docker load -i /tmp/image-arm64.tar
           rm -rf /tmp/arm64/ /tmp/image-arm64.tar
 
+      - name: Check loaded images
+        run: |
+          docker images
+          docker manifest inspect latex-devcontainer:amd64
+          docker manifest inspect latex-devcontainer:arm64
+
       - name: Create merged manifest
         run: |
           docker manifest create latex-devcontainer:built \
