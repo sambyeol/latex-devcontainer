@@ -21,6 +21,7 @@ RUN yes | cpan install \
         Log::Dispatch::File \
         YAML::Tiny
 
+ARG CTAN_MIRROR=https://mirror.ctan.org/systems/texlive/tlnet
 ARG TARGETARCH TARGETOS
 ARG PLATFORM=${TARGETARCH/amd/x86_}
 ARG PLATFORM=${PLATFORM/arm/aarch}
@@ -28,7 +29,7 @@ ARG PLATFORM=${PLATFORM}-${TARGETOS}
 RUN cd /tmp \
     && curl -kL https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzf - \
     && cd ./install-tl-* \
-    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction -texdir /opt/texlive \
+    && TEXLIVE_INSTALL_ENV_NOCHECK=1 perl ./install-tl --no-interaction --location ${CTAN_MIRROR} -texdir /opt/texlive \
     && ls -l /opt/texlive/bin/${PLATFORM} \
     && rm -r /tmp/*
 
