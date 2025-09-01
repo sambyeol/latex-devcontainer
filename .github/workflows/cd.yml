@@ -79,6 +79,12 @@ jobs:
       contents: read
       packages: write
 
+    services:
+      registry:
+      image: registry:3.0.0
+      ports:
+        - 5000:5000
+
     steps:
       - name: Free some spaces
         run: |
@@ -114,6 +120,8 @@ jobs:
           cat /tmp/amd64/image-amd64.tar.part.* > /tmp/image-amd64.tar
           docker load -i /tmp/image-amd64.tar
           rm -rf /tmp/amd64/ /tmp/image-amd64.tar
+          docker tag latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
+          docker push localhost:5000/latex-devcontainer:amd64
 
       - name: Download ARM64 artifacts
         uses: actions/download-artifact@v4
@@ -126,18 +134,16 @@ jobs:
           cat /tmp/arm64/image-arm64.tar.part.* > /tmp/image-arm64.tar
           docker load -i /tmp/image-arm64.tar
           rm -rf /tmp/arm64/ /tmp/image-arm64.tar
-
-      - name: Check loaded images
-        run: |
-          docker images
-          docker manifest inspect latex-devcontainer:amd64
-          docker manifest inspect latex-devcontainer:arm64
+          docker tag latex-devcontainer:amd64 localhost:5000/latex-devcontainer:amd64
+          docker push localhost:5000/latex-devcontainer:amd64
 
       - name: Create merged manifest
         run: |
-          docker manifest create latex-devcontainer:built \
-            --amend latex-devcontainer:amd64 \
-            --amend latex-devcontainer:arm64
+          docker manifest create --insecure localhost:5000/latex-devcontainer:built \
+            --amend localhost:5000/latex-devcontainer:amd64 \
+            --amend localhost:5000/latex-devcontainer:arm64
+          docker manifest push localhost:5000/latex-devcontainer:built
+          docker manifest inspect localhost:5000/latex-devcontainer:built
 
       - uses: docker/login-action@v3
         with:
@@ -150,5 +156,5 @@ jobs:
         with:
           push: true
           set: |
-            latest.dockerfile-inline="FROM latex-devcontainer:built"
-            
+            latest.dockerfile-inline="FROM localhost:5000/latex-devcontainer:built"
+
