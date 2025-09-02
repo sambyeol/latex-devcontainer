@@ -144,27 +144,25 @@ jobs:
           df -h
           echo
 
-      - name: Create merged manifest
-        run: |
-          docker manifest create --insecure localhost:5000/latex-devcontainer:built \
-            --amend localhost:5000/latex-devcontainer:amd64 \
-            --amend localhost:5000/latex-devcontainer:arm64
-          docker manifest push localhost:5000/latex-devcontainer:built
-          docker manifest inspect localhost:5000/latex-devcontainer:built
-
       - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set temporal dockerfile
+      - name: Create merged manifest
         run: |
-          echo "FROM localhost:5000/latex-devcontainer:built" > /tmp/Dockerfile
+          tags=""
+          for tag in $(docker buildx bake --print | jq -r ".target.latest.tags[]"); do
+            tags="$tags $tag"
+          done
+          docker create manifest $tags \
+            --amend localhost:5000/latex-devcontainer:amd64 \
+            --amend localhost:5000/latex-devcontainer:arm64
+          docker manifest push $tags
 
-      - name: Push multi-arch manifest using pre-built images
-        uses: docker/bake-action@v6
+      - uses: docker/login-action@v3
         with:
-          push: true
-          set: |
-            latest.dockerfile=/tmp/Dockerfile
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
