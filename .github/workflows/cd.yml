@@ -154,12 +154,12 @@ jobs:
         run: |
           tags=""
           for tag in $(docker buildx bake --print | jq -r ".target.latest.tags[]"); do
-            tags="$tags $tag"
+            docker create manifest $tag \
+              --amend localhost:5000/latex-devcontainer:amd64 \
+              --amend localhost:5000/latex-devcontainer:arm64
+            docker manifest inspect $tag
+            docker manifest push $tag
           done
-          docker manifest create $tags \
-            --amend localhost:5000/latex-devcontainer:amd64 \
-            --amend localhost:5000/latex-devcontainer:arm64
-          docker manifest push $tags
 
       - uses: docker/login-action@v3
         with:
