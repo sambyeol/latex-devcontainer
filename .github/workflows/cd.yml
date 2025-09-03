@@ -152,7 +152,6 @@ jobs:
 
       - name: Create merged manifest
         run: |
-          tags=""
           for tag in $(docker buildx bake --print | jq -r ".target.latest.tags[]"); do
             docker manifest create $tag \
               --amend localhost:5000/latex-devcontainer:amd64 \
