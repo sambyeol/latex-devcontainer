@@ -144,24 +144,21 @@ jobs:
           df -h
           echo
 
-      - uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Create merged manifest
         run: |
-          for tag in $(docker buildx bake --print | jq -r ".target.latest.tags[]"); do
-            docker manifest create --insecure $tag \
-              --amend localhost:5000/latex-devcontainer:amd64 \
-              --amend localhost:5000/latex-devcontainer:arm64
-            docker manifest inspect $tag
-            docker manifest push $tag
-          done
+          docker manifest create --insecure localhost:5000/latex-devcontainer:latest \
+            --amend localhost:5000/latex-devcontainer:amd64 \
+            --amend localhost:5000/latex-devcontainer:arm64
+          docker manifest push localhost:5000/latex-devcontainer:latest
+          docker manifest inspect localhost:5000/latex-devcontainer:latest
 
-      - uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to ${{ env.REGISTRY }} with skopeo
+        run: |
+          echo "Attempting docker login to: ${{ env.REGISTRY }}"
+          skopeo login -u "${{ github.actor }}" -p "${{ secrets.GITHUB_TOKEN }}" ${{ env.REGISTRY }}
+
+      - name: Push to ${{ env.REGISTRY }}      
+        run: |
+          for tag in $(docker buildx bake --print | jq -r ".target.latest.tags[]"); do
+            skopeo copy --multi-arch all --src-tls-verify=false docker://localhost:5000/latex-devcontainer:latest "docker://${tag}"
+          done
