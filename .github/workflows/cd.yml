@@ -68,7 +68,7 @@ jobs:
           ls -la /tmp/image-${{ matrix.arch_name }}.tar.part.*
 
       - name: Upload ${{ matrix.arch_name }} artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: docker-image-${{ matrix.arch_name }}
           path: /tmp/image-${{ matrix.arch_name }}.tar.part.*
