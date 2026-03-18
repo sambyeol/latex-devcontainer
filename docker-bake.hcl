@@ -11,7 +11,7 @@ target "latest" {
         "linux/arm64",
     ]
     tags = [
-        "ghcr.io/sambyeol/latex-devcontainer:2025",
+        "ghcr.io/sambyeol/latex-devcontainer:2026",
         "ghcr.io/sambyeol/latex-devcontainer:latest",
     ]
 }
