@@ -54,7 +54,7 @@ jobs:
       - uses: docker/setup-buildx-action@v4
 
       - name: Build ${{ matrix.arch_name }}
-        uses: docker/bake-action@v6
+        uses: docker/bake-action@v7
         with:
           set: |
             latest.platform=${{ matrix.platform }}
